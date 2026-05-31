@@ -99,107 +99,80 @@ module.exports = function tts(voiceName, text, headers) {
 				/* -------------------- READLOUD -------------------- */
 				case "readloud": {
 					const req = https.request(
-				{
-					hostname: "readloud.net",
-					path: voice.arg,
-					method: "POST",
-					headers: {
-						"Content-Type": "application/x-www-form-urlencoded"
-					}
-				},
-				async (res) => {
-					try {
-						if (res.statusCode != 200) {
-							return reject("ReadLoud error occurred when generating audio");
-						}
-						let buffers = [];
-						res.on("data", (b) => buffers.push(b));
-						res.on("end", (b) => buffers.push(b));
-					let buffers = [];
-					res.on("data", (b) => buffers.push(b));
-
-					res.on("end", () => {
-						try {
-							const html = Buffer.concat(buffers);
-
-							const beg = html.indexOf("/tmp/");
-							const end = html.indexOf("mp3", beg) + 3;
-
-							const sub = html.subarray(beg, end).toString();
-
-							const req = https.get(`https://readloud.net${sub}`, (res) => {
+						{
+							hostname: "readloud.net",
+							path: voice.arg,
+							method: "POST",
+							headers: {
+								"Content-Type": "application/x-www-form-urlencoded",
+							},
+						},
+						(res) => {
+							try {
 								if (res.statusCode !== 200) {
-									return reject("ReadLoud error occurred when retrieving audio");
+									return reject(
+										"ReadLoud error occurred when generating audio"
+									);
 								}
 
-								resolve(res);
-							});
+								const buffers = [];
 
-							req.on("error", reject);
+								res.on("data", (b) => buffers.push(b));
 
-						} catch (e) {
-							reject(e);
+								res.on("end", () => {
+									try {
+										const html = Buffer.concat(buffers);
+
+										const beg = html.indexOf("/tmp/");
+										const end = html.indexOf("mp3", beg) + 3;
+
+										const sub = html.subarray(beg, end).toString();
+
+										const audioReq = https.get(
+											`https://readloud.net${sub}`,
+											(audioRes) => {
+												if (audioRes.statusCode !== 200) {
+													return reject(
+														"ReadLoud error occurred when retrieving audio"
+													);
+												}
+
+												resolve(audioRes);
+											}
+										);
+
+										audioReq.on("error", reject);
+									} catch (e) {
+										reject(e);
+									}
+								});
+							} catch (e) {
+								reject(e);
+							}
 						}
-					});
-				}
-			);
-			req.on("error", reject);
-			const body = new URLSearchParams({
-				but1: text,
-				butS: "0",
-				butP: "0",
-				butPauses: "0",
-				butt0: "Submit",
-			}).toString();
-			req.end(body);
+					);
+
+					req.on("error", reject);
+
+					const body = new URLSearchParams({
+						but1: text,
+						butS: "0",
+						butP: "0",
+						butPauses: "0",
+						butt0: "Submit",
+					}).toString();
+
+										req.end(body);
+
 					break;
 				}
+
+				default:
+					reject(`Unsupported voice source: ${voice.source}`);
+					break;
 			}
-		} catch (err) {
-			reject(err);
+		} catch (e) {
+			reject(e);
 		}
 	});
-}
-
-/* ==================== VOICEFORGE TEXT ==================== */
-
-function streamToBuffer(stream) {
-	return new Promise((resolve, reject) => {
-		const chunks = [];
-		stream.on("data", c => chunks.push(c));
-		stream.on("end", () => resolve(Buffer.concat(chunks)));
-		stream.on("error", reject);
-	});
-}
-
-async function convertVoiceforgeText(text, voiceArg) {
-	return new Promise((resolve) => {
-		let inputText = text.toLowerCase();
-		if (!inputText.includes("aaaaa")) return resolve(text);
-
-		const pattern = /(?:gr|[a-z])a{2,}([a-z]?)/g;
-		const matches = inputText.match(pattern);
-		if (!matches) return resolve(text);
-
-		for (const match of matches) {
-			let voiceValues = ["aa"];
-			const initialChar = match.charAt(0);
-
-			// logic unchanged / placeholder
-			// voiceValues manipulation would go here
-
-			const xml = `<phoneme ph="${voiceValues.join(" ")}">Cepstral</phoneme>`;
-
-			let modified = inputText
-				.replace(match, xml)
-				.replace(/!/g, "! ,")
-				.replace(/\?/g, "? ,")
-				.replace(/,/g, ", ;")
-				.replace(/\./g, ". ,");
-
-			return resolve(modified);
-		}
-
-		resolve(text);
-	});
-}
+};
