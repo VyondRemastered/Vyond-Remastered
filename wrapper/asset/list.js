@@ -210,7 +210,6 @@ module.exports = function (req, res, url) {
 						hostname: "discord.com",
 						path: "/api/v10/channels/942904763413069914/messages?limit=100",
 						headers: {
-							Authorization: 'Nzc1NTA4NTM1NTY3NTgxMTk1.GDJDwI.D6wdlCpehaDC7Qw9Z640sf2bjwQEeGTW-TIFHY'
 						}
 					}, r => {
 						const buffers = [];
