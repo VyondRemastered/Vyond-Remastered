@@ -1,0 +1,31 @@
+#shade,
+#modal {
+  display: none;
+}
+
+#shade {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#modal {
+  position: fixed;
+  z-index: 101;
+  top: 33%;
+  left: 25%;
+  width: 50%;
+}
+
+#shade {
+  background: rgb(70, 70, 70);
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.window_p {
+    color: black;
+}

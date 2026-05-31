@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" href="../../favicon.ico" type="image/png">
+	<title>Create</title>
+	<meta name="description" content="Vyond: Remastered's Create List">
+	<link rel="stylesheet" type="text/css" href="../css/modern-normalize.css">
+	<link rel="stylesheet" type="text/css" href="../css/global.css">
+	<link rel="stylesheet" type="text/css" href="../css/create.css">
+</head>
+<body>
+	<header>
+		<a href="/">
+			<h1 style="margin:0"><img id="logo" src="../img/list_logo.png" alt="Vyond: Remastered"/></h1>
+		</a>
+		<nav id="headbuttons">
+			<div class="dropdown_contain button_small">
+				<div class="dropdown_button upload_button">UPLOAD</div>
+				<nav class="dropdown_menu">
+					<a onclick="document.getElementById('file').click()">Movie</a>
+					<a onclick="document.getElementById('file2').click()">Character</a>
+					<a onclick="document.getElementById('file3').click()">Watermark</a>
+				</nav>
+			</div>	
+			<div class="dropdown_contain button_small">
+				<div class="dropdown_button">CREATE A CHARACTER</div>
+				<nav class="dropdown_menu">
+					<h2>Comedy World</h2>
+					<a href="/cc?themeId=family&bs=adam">Guy (Adam)</a>
+					<a href="/cc?themeId=family&bs=eve">Girl (Eve)</a>
+					<a href="/cc?themeId=family&bs=bob">Fat (Bob)</a>
+					<a href="/cc?themeId=family&bs=rocky">Buff (Rocky)</a>
+					<hr />
+					<h2>Business Friendly</h2>
+					<a href="/cc?themeId=business&bs=default&ft=_sticky_filter_guy">Guy (Adam)</a>
+					<a href="/cc?themeId=business&bs=default&ft=_sticky_filter_girl">Girl (Eve)</a>
+					<a href="/cc?themeId=business&bs=heavy&ft=_sticky_filter_heavyguy">Fat (Bob)</a>
+					<hr />
+					<h2>Anime</h2>
+					<a href="/cc?themeId=anime&bs=guy">Guy</a>
+					<a href="/cc?themeId=anime&bs=girl">Girl</a>
+					<a href="/cc?themeId=ninjaanime&bs=guy">Guy (Ninja)</a>
+					<a href="/cc?themeId=ninjaanime&bs=girl">Girl (Ninja)</a>
+					<hr />
+					<h2>Peepz</h2>
+					<a href="/cc?themeId=cc2&bs=default">Lil Peepz</a>
+					<a href="/cc?themeId=chibi&bs=default">Chibi Peepz</a>
+					<a href="/cc?themeId=ninja&bs=default">Chibi Ninjas</a>
+				</nav>
+			</div>
+			<div class="dropdown_contain button_small">
+				<div class="dropdown_button">BROWSE CHARACTERS</div>
+				<nav class="dropdown_menu">
+					<h2>Comedy World</h2>
+					<a href="/cc_browser?themeId=family">Comedy World</a>
+					<hr />
+					<h2>Anime</h2>
+					<a href="/cc_browser?themeId=anime">Anime</a>
+					<a href="/cc_browser?themeId=ninjaanime">Ninja Anime</a>
+					<hr />
+					<h2>Peepz</h2>
+					<a href="/cc_browser?themeId=cc2">Lil' Peepz</a>
+					<a href="/cc_browser?themeId=chibi">Chibi Peepz</a>
+					<a href="/cc_browser?themeId=ninja">Chibi Ninjas</a>
+				</nav>
+			</div>
+			<a href="create.html" class="button_big">MAKE A VIDEO</a>
+		</nav>
+	</header>
+		<main>
+			<h1>Select a theme</h1>
+
+			<div class="theme" data-has-cc>
+				<a href="http://localhost:4343/go_full?tray=custom">
+					<img src="/pages/img/themes/custom.jpg" alt="Comedy World">
+					Comedy World
+				</a>
+			</div>
+			<div class="theme" data-has-cc>
+				<a href="http://localhost:4343/go_full?tray=action">
+					<img src="/pages/img/themes/action.jpg" alt="Lil' Peepz">
+					Lil' Peepz
+				</a>
+			</div>
+			<div class="theme" id="business-theme" data-has-cc>
+				<a href="http://localhost:4343/go_full?tray=business">
+					<img src="/pages/img/themes/business.jpg" alt="Business Friendly">
+					Business Friendly
+				</a>
+			</div>
+			<div class="theme" id="business2015-theme" style="display: none;">
+				<a href="http://localhost:4343/go_full?tray=sticklybiz">
+					<img src="/pages/img/themes/sticklybiz.jpg" alt="Stickly Business">
+					Stickly Business
+				</a>
+			</div>
+			<div class="theme">
+				<a href="http://localhost:4343/go_full?tray=retro">
+					<img src="/pages/img/themes/retro.jpg" alt="Cartoon Classics">
+					Cartoon Classics
+				</a>
+			</div>
+			<div class="theme">
+				<a href="http://localhost:4343/go_full?tray=politics2">
+					<img src="/pages/img/themes/politics2.jpg" alt="White Houserz">
+					White Houserz
+				</a>
+			</div>
+			<div class="theme">
+                <a href="http://localhost:4343/go_full?tray=stick">
+					<img src="/pages/img/themes/stick.jpg" alt="Stick Figure">
+					Stick Figure
+				</a>
+			</div>
+			<div class="theme" data-has-cc>
+                <a href="http://localhost:4343/go_full?tray=anime">
+					<img src="/pages/img/themes/anime.jpg" alt="Anime">
+					Anime
+				</a>
+			</div>
+			<div class="theme" data-has-cc>
+				<a href="http://localhost:4343/go_full?tray=ninjaanime">
+					<img src="/pages/img/themes/ninjaanime.jpg" alt="Ninja Anime">
+					Ninja Anime
+				</a>
+			</div>
+			<div class="theme" data-has-cc>
+				<a href="http://localhost:4343/go_full?tray=spacecitizen">
+					<img src="/pages/img/themes/spacecitizen.jpg" alt="Space Citizens">
+					Space Citizens
+				</a>
+			</div>
+			<div class="theme" data-has-cc>
+				<a href="http://localhost:4343/go_full?tray=chibi">
+					<img src="/pages/img/themes/chibi.jpg" alt="Chibi Peepz">
+					Chibi Peepz
+				</a>
+			</div>
+			<div class="theme" data-has-cc>
+				<a href="http://localhost:4343/go_full?tray=ninja">
+					<img src="/pages/img/themes/ninja.jpg" alt="Chibi Ninjas">
+					Chibi Ninjas
+				</a>
+			</div>
+			<div class="theme" data-has-cc>
+				<a href="http://localhost:4343/go_full?tray=animal">
+					<img src="/pages/img/themes/animal.jpg" alt="Lil' Petz World">
+					Lil' Petz World
+				</a>
+			</div>
+			<div class="theme" data-has-cc>
+				<a href="http://localhost:4343/go_full?tray=space">
+					<img src="/pages/img/themes/space.jpg" alt="Space Peepz">
+					Space Peepz
+				</a>
+			</div>
+		</main>
+		<footer>
+			<nav id="foot-left">
+				<a>v2.5.0</a>
+				<a href="https://discord.gg/ErwfsXGCxr">Discord</a>
+				<a href="./settings.html">Settings</a>
+			</nav>
+		</footer>
+	</body>
+	<form enctype='multipart/form-data' action='/upload_movie' method='post'>
+		<input id='file' type="file" onchange="this.form.submit()" name='import' />
+	</form>
+	
+	<form enctype='multipart/form-data' action='/upload_character' method='post'>
+		<input id='file2' type="file" onchange="this.form.submit()" name='import' />
+	</form>
+	
+	<form enctype='multipart/form-data' action='/api/asset/upload' method='post'>
+		<input type="hidden" name="type" value="watermark"/>
+		<input id='file3' type="file" onchange="this.form.submit()" name='import' />
+	</form>
+	<script src="/pages/js/jquery.js"></script>
+	<script>
+		const charId = $("input[name='char-id']");
+		// filter the list
+		const params = new URLSearchParams(window.location.search);
+		// default to all themes
+		const filter = params.get("filter") || "vl";
+		if (filter == "cc")
+			$(".theme").not("[data-has-cc]").hide();
+		else
+			$("#char-copy").hide();
+
+		function redirect(tId, ccId = false) {
+			if (filter == "cc") {
+				window.location.href = `./cc_browser?themeId=${ccId}`;
+				return;
+			}
+			window.location.href = `./go_full?tray=${tId}`;
+		}
+		function copyRedirect() {
+			const id = charId.val();
+			window.location.href = `./cc?original_asset_id=${id}`;
+		}
+		$.getJSON("/api/settings/list", (d) => {
+			if (d.year == "2015") {
+				$("#business-theme").hide();
+				$("#business2015-theme").show()
+			}
+		});
+	</script>
+</html>

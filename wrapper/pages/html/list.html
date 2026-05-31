@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="icon" href="../../favicon.ico" type="image/png">
+		<title>Video List</title>
+		<meta name="description" content="Vyond: Remastered's Video List">
+		<link rel="stylesheet" type="text/css" href="../css/modern-normalize.css">
+		<link rel="stylesheet" type="text/css" href="../css/global.css">
+		<link rel="stylesheet" type="text/css" href="../css/list.css">
+		<link rel="stylesheet" type="text/css" href="../css/window.css">
+		<script src="/pages/js/jquery.js"></script>
+		<script>
+			$.post("/api/setDiscordStatus", {status: "Video List"});
+			const meta = {};
+		    var json;
+			const listReq = new XMLHttpRequest();
+			listReq.open("GET", "/movieList");
+			listReq.send();
+		
+			const listReq2 = new XMLHttpRequest();
+			listReq2.open("POST", "/api/watermarks/list");
+			listReq2.send();
+		
+			function loadRows(watermarks = false) { // lists movies and watermarks.
+				if (!watermarks) for (const tbl of json) {
+					const date = tbl.date.substr(0, 10) + ' ' + tbl.date.substr(11);
+					$("#video-tbody").append(`<tr id="${tbl.id}"><td><img src="/movie_thumbs/${tbl.id}"></td><td><div>${tbl.title}</div><div>${tbl.durationString}</div></div></td><td><span>${date.match(/./g).join('</span><span>')}</span></td><td><a href="javascript:;" onclick="popup('${tbl.id}')"></a><a href="/go_full?movieId=${tbl.id}"></a><a href="/movies/${tbl.id}.xml" download="${tbl.title}"></a><a href="javascript:;" onclick="del('movie', '${tbl.id}')"></a></td></tr>`);
+				} else for (const tbl of json) {
+					$("#wtr-tbody").append(`<tr id="${tbl.id.split(".")[0]}"><td><img src="/watermarks/${tbl.id}"></td><td><div>${tbl.id.split(".")[0]}</div></td><td><a href="javascript:;" onclick="del('watermark', '${tbl.id}')">Delete</a></td></tr>`);
+				}
+			}
+		
+			listReq.onreadystatechange = function (e) {
+				if (listReq.readyState != 4) return;
+				json = JSON.parse(listReq.responseText);
+				loadRows();
+			}
+		
+			listReq2.onreadystatechange = function (e) {
+				if (listReq2.readyState != 4) return;
+				json = JSON.parse(listReq2.responseText);
+				loadRows(true);
+			}
+		
+			function popup(id) { // pops up the video player.
+				window.open('/player?movieId=' + id, 'MsgWindow', 'width=1280,height=720,left=' + (screen.width / 2 - 640) + ',top=' + (screen.height / 2 - 360));
+			}
+			function del(type, id) { // deletes anything by type.
+				const yesorno = confirm(`Are you sure that you want to delete ${type} #${id.split(".")[0]}? This action cannot be undone!`);
+				if (yesorno) $.post(`/api/${type}/delete`, {id}).done(d => {
+					const json = JSON.parse(d);
+					if (json.status == "ok") $(`#${id.split(".")[0]}`).fadeOut(() => $(`#${id.split(".")[0]}`).remove());
+					else alert(`Error deleting ${type}. Please check your command prompt for more infomation if you have verbose mode enabled.`);
+				});
+			}
+			function switchList(f) { // helps with the buttons on the top left corner of this page.
+				switch (f) {
+					case "videos": {
+						document.getElementById('watermarks').style.display = 'none';
+						document.getElementById('assets').style.display = 'none';
+						$("#watermarks_button").addClass("inactive");
+						$("#assets_button").addClass("inactive");
+						$("#videos_button").removeClass("inactive");
+						$("#html-importer").hide();
+						$("#myFolders").hide();
+						break;
+					} case "watermarks": {
+						document.getElementById('videos').style.display = 'none';
+						document.getElementById('assets').style.display = 'none';
+						$("#videos_button").addClass("inactive");
+						$("#assets_button").addClass("inactive");
+						$("#watermarks_button").removeClass("inactive");
+						$("#html-importer").hide();
+						$("#myFolders").hide();
+						break;
+					} case "assets": {
+						document.getElementById('videos').style.display = 'none';
+						document.getElementById('watermarks').style.display = 'none';
+						$("#videos_button").addClass("inactive");
+						$("#assets_button").removeClass("inactive");
+						$("#watermarks_button").addClass("inactive");
+						$("#html-importer").show();
+						$("#myFolders").show();
+						break;
+					}
+				}
+				document.getElementById(f).style.display = 'block';
+			}
+			$.post("/api/database/get", {type: "assets"}).done(d => { // lists all assets by using a database.
+				const json = JSON.parse(d);
+				for (const tbl of json) {
+					const thmbUrl = !tbl.folder ? `/assets/${tbl.file.includes("mp3") || tbl.type == "movie" || tbl.type == "char" ? `${tbl.id}.png` : tbl.file}` : `/folders/${tbl.folder}/${tbl.file}`;
+					$("#asset-tbody").append(`<tr id="${tbl.id}"><td><img src="${thmbUrl}"></td><td><div>${tbl.title}</div><div>Type: ${tbl.type}</div><div>Subtype: ${tbl.subtype || 0}</div></td><td>${tbl.subtype != "tts" ? `<a href="javascript:;" onclick="deleteAsset('${tbl.file}')">Delete</a><br><a href="javascript:;" onclick="updateAsset('${tbl.id}')">Update</a>` : 'You can\'t do anything here because it can cause problems with your movie.'}${tbl.type == "char" ? `<br><a href="/cc?themeId=${tbl.themeId}&original_asset_id=${tbl.id}&noCopy=1">Edit</a><br><a href="/cc?themeId=${tbl.themeId}&original_asset_id=${tbl.id}">Copy</a>` : ''}</td></tr>`)
+				}
+			})
+			function openFolder(id) {
+				$.post("/api/database/get", {type: "assets"}).done(d => { // lists all assets by using a database filtered by a folder name and type as a prop.
+					const json = JSON.parse(d);
+					let containsAssets = false;
+					$(`#${id}_body`).html(json.map(tbl => {
+						if (tbl.folder == id) {
+							containsAssets = true;
+							return `
+							<div id="insideFolder_box" class="${tbl.id}_inFolder">
+								<p class="window_p">Asset Title: ${tbl.title}</p>
+								<br><br>
+								<p class="window_p">Actions:<br> 
+									<a href="javascript:updateAsset('${tbl.id}')">Update</a> 
+									<a href="javascript:deleteAssetInFolder('${tbl.id}')">Delete</a>
+									<a href="javascript:hideAssetsInsideFolder('${tbl.id}')">Close</a>
+								</p>
+							</div>`;
+						}
+					}))
+					if (!containsAssets) $(`#${id}_body`).html(`
+					<div id="insideFolder_box" class="${id}_inFolder">
+						<p class="window_p">No Assets</p>
+						<br><br>
+						<p class="window_p">Actions:<br> 
+							<a href="javascript:hideAssetsInsideFolder('${id}')">Close</a>
+						</p>
+					</div>`);
+				});
+			}
+			function deleteAssetInFolder(id) {
+				deleteAsset(id, true);
+			}
+			function hideAssetsInsideFolder(id) {
+				$(`.${id}_inFolder`).hide();
+			}
+			$.post("/api/database/get", {type: "folders"}).done(d => { // lists all folders by using a database.
+				const json = JSON.parse(d);
+				for (const tbl of json) $("#myFolders-body").append(`
+				<div id="myFolders_box" class="${tbl.id}">
+					<p class="window_p">Folder Title: ${tbl.name}</p>
+					<br><br>
+					<p class="window_p">Actions:<br> 
+						<a href="javascript:updateFolder('${tbl.id}')">Update</a> 
+						<a href="javascript:deleteFolder('${tbl.id}')">Delete</a>
+						<a href="javascript:openFolder('${tbl.id}')">Open</a><br>
+						<a href="javascript:assignPropToFolder('${tbl.id}')">Assign A Prop</a>
+						<a href="javascript:unAssignPropFromFolder('${tbl.id}')">Unassign A Prop</a>
+					</p>
+					<div id="${tbl.id}_body"></div>
+				</div>`);
+			})
+			function assignPropToFolder(id) {
+				$.post("/api/database/get", {type: "assets"}).done(d => {
+					const json = JSON.parse(d);
+					const aList = json.filter(i => i.type == "prop");
+					$("#shade").show();
+					$("#modal").html(`
+					<center>
+						<p class="window_p">Select a prop to assign to folder #${id} 
+							<button onclick="hideModal()">X</button>
+							<form style="display:block" action="/api/prop/assign" method="post">
+								<select name="asset">${aList.map(tbl => !tbl.folder ? `<option value="${tbl.id}">${tbl.title}</option>` : '').join("") || '<option value="noprops">No Props</option>'}</select>
+								<input type="hidden" name="folder" value="${id}"/>
+								<br><br>
+								<input type="button" class="button_big inactive" onclick="hideModal()" value="Cancel"/> <input type="submit" class="button_big" onclick="this.form.submit()" value="Assign Prop"/>
+							</form>
+						</p>
+					</center>`).show();
+				});
+			}
+			function unAssignPropFromFolder(id) {
+				$.post("/api/database/get", {type: "assets"}).done(d => {
+					const json = JSON.parse(d);
+					const aList = json.filter(i => i.type == "prop");
+					$("#shade").show();
+					$("#modal").html(`
+					<center>
+						<p class="window_p">Select a prop to unassign from folder #${id} 
+							<button onclick="hideModal()">X</button>
+							<form style="display:block" action="/api/prop/unassign" method="post">
+								<select name="asset">${aList.map(tbl => tbl.folder ? `<option value="${tbl.id}">${tbl.title}</option>` : '').join("") || '<option value="noprops">No Props</option>'}</select>
+								<input type="hidden" name="folder" value="${id}"/>
+								<br><br>
+								<input type="button" class="button_big inactive" onclick="hideModal()" value="Cancel"/> <input type="submit" class="button_big" onclick="this.form.submit()" value="Unassign Prop"/>
+							</form>
+						</p>
+					</center>`).show();
+				});
+			}
+			function updateFolder(id) {
+				$.post("/api/database/meta", {type: "folders", id}).done(d => {
+					if (!d) alert("Asset metadata doesn't exist! Asset id:", id)
+					const json = JSON.parse(d);
+					$("#shade").show();
+					$("#modal").html(`
+					<center>
+						<p class="window_p">Edit Info <button onclick="hideModal()">X</button></p>
+						<form style="display:block" action='/api_v2/folder/update/' method='post'>
+							<p class="window_p">Name:</p>
+							<input type="text" onclick="this.select()" name="title" value="${json.name}"/>
+							<input type="hidden" name="updatingFromHTML" value="true"/>
+							<input type="hidden" name="id" value="${json.id}"/>
+							<br><br>
+							<input type="button" class="button_big inactive" onclick="hideModal()" value="Cancel"/> <input type="submit" class="button_big" onclick="this.form.submit()" value="Update"/>
+						</form>
+					</center>`).show();
+				});
+			}
+			function deleteFolder(id) {
+				const yesorno = confirm(`Are you sure that you want to delete folder #${id}? this action cannot be undone!`);
+				if (yesorno) $.post("/api_v2/folder/delete/", {id}).done(d => {
+					const json = JSON.parse(d);
+					console.log(json);
+					if (json.status == "ok") {
+						$(`.${id}`).fadeOut(() => $(`.${id}`).remove());
+						for (const ids of json.data) $(`#${ids.split(".")[0]}`).fadeOut(() => $(`#${ids.split(".")[0]}`).remove());
+					} else alert(json.msg);
+				});
+			}
+			function prepareImport() { // prepares the importer after the user selects a file.
+				if (!meta.hasImporterFiles) { // shows import options after the user has selected a file.
+					meta.hasImporterFiles = true;
+					$("#importer-quene").show();
+				} else { // hides the selection if the user clicks cancel on file selection.
+					meta.hasImporterFiles = false;
+					$("#importer-quene").hide();
+				}
+			}
+			function updateAsset(id) {
+				$.post("/api/database/meta", {type: "assets", id}).done(d => {
+					const json = JSON.parse(d);
+					const tags = json.tags.split(json.tags.includes(",cat:") ? ",cat:" : json.tags.includes(",_cat:") ? ",_cat:" : "cat")[0];
+					const cat = json.tags.includes(",_public") ? json.tags.split(",_public")[0].split("cat:")[1] : json.tags.split("cat:")[1] || "";
+					$("#shade").show();
+					$("#modal").html(`
+					<center>
+						<p class="window_p">Edit Info <button onclick="hideModal()">X</button></p>
+						<form style="display:block" action='/api_v2/asset/update/' method='post'>
+							<p class="window_p">ID:</p>
+							<textarea rows="1" cols="${json.id.length}" onclick="this.select()" readonly>${json.id}</textarea>
+							<input type="hidden" name="id" value="${json.id}"/>
+							<input type="hidden" name="assetId" value="${json.file}"/>
+							<input type="hidden" name="updatingFromHTML" value="true"/>
+							<p class="window_p">Name:</p>
+							<input type="text" onclick="this.select()" name="title" value="${json.title}"/>
+							<p class="window_p">Tags:</p>
+							<textarea rows="1" cols="${json.tags ? tags.length : "20"}" onclick="this.select()" readonly>${tags}</textarea>
+							<p class="window_p">Category</p>
+							<textarea rows="1" cols="${json.tags ? cat.length : "20"}" onclick="this.select()" readonly>${cat}</textarea>
+							<p class="window_p">Sharing permission</p>
+							<select id="sharingOptions" name="share">
+								<option value="team">All members</option>
+								<option value="none">No Sharing</option>
+							</select><br><br>
+							<input type="button" class="button_big inactive" onclick="hideModal()" value="Cancel"/> <input type="submit" class="button_big" onclick="this.form.submit()" value="Update"/>
+						</form>
+					</center>`).show();
+					//$("#assetPublic").prop("checked", json.tags.includes("_public"));
+					$("#sharingOptions").find(`option[value='${json.share.type}']`).prop("selected", true);
+				});
+			}
+			function createNew(type) {
+				$("#shade").show();
+				$("#modal").html(`
+				<center>
+					<p class="window_p">Create a new ${type} <button onclick="hideModal()">X</button></p>
+					<form style="display:block" action='/api/${type}/create' method='post'>
+						<p class="window_p">Name:</p>
+						<input type="text" name="title" value=""/>
+						<br><br>
+						<input type="button" class="button_big inactive" onclick="hideModal()" value="Cancel"/> <input type="submit" class="button_big" onclick="this.form.submit()" value="Create"/>
+					</form>
+				</center>`).show();
+			}
+			function hideModal() {
+				$("#shade").hide();
+				$("#modal").hide();
+			}
+			function deleteAsset(id, usingFolders = false) { // deletes an asset.
+				const yesorno = confirm(`Are you sure that you want to delete asset #${id.split(".")[0]}? This action cannot be undone!`);
+				if (yesorno) $.post(`/api_v2/asset/delete/`, {id: id.split(".")[0]}).done(d => {
+					const json = JSON.parse(d);
+					if (json.status == "ok") {
+						if (usingFolders) $(`.${id.split(".")[0]}_inFolder`).fadeOut(() => $(`.${id.split(".")[0]}_inFolder`).remove());
+						$(`#${id.split(".")[0]}`).fadeOut(() => $(`#${id.split(".")[0]}`).remove());
+					} else alert(json.msg);
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<header>
+			<a href="/">
+				<h1 style="margin:0"><img id="logo" src="../img/list_logo.png" alt="Vyond: Remastered"/></h1>
+			</a>
+			<nav id="headbuttons">
+				<div class="dropdown_contain button_small">
+					<div class="dropdown_button upload_button">UPLOAD</div>
+					<nav class="dropdown_menu">
+						<a onclick="document.getElementById('file').click()">Movie</a>
+						<a onclick="document.getElementById('file2').click()">Character</a>
+						<a onclick="document.getElementById('file3').click()">Watermark</a>
+					</nav>
+				</div>	
+				<div class="dropdown_contain button_small">
+					<div class="dropdown_button">CREATE A CHARACTER</div>
+					<nav class="dropdown_menu">
+						<h2>Comedy World</h2>
+						<a href="/cc?themeId=family&bs=adam">Guy (Adam)</a>
+					    <a href="/cc?themeId=family&bs=eve">Girl (Eve)</a>
+					    <a href="/cc?themeId=family&bs=bob">Fat (Bob)</a>
+					    <a href="/cc?themeId=family&bs=rocky">Buff (Rocky)</a>
+					    <hr />
+					    <h2>Business Friendly</h2>
+					    <a href="/cc?themeId=business&bs=default&ft=_sticky_filter_guy">Guy (Adam)</a>
+					    <a href="/cc?themeId=business&bs=default&ft=_sticky_filter_girl">Girl (Eve)</a>
+					    <a href="/cc?themeId=business&bs=heavy&ft=_sticky_filter_heavyguy">Fat (Bob)</a>
+					    <hr />
+						<h2>Whiteboard Animation</h2>
+						<a href="/cc?themeId=whiteboard&bs=default&ft=_sticky_filter_guy">Guy (Adam)</a>
+						<a href="/cc?themeId=whiteboard&bs=default&ft=_sticky_filter_girl">Girl (Eve)</a>
+					    <h2>Anime</h2>
+					    <a href="/cc?themeId=anime&bs=guy">Guy</a>
+					    <a href="/cc?themeId=anime&bs=girl">Girl</a>
+					    <a href="/cc?themeId=ninjaanime&bs=guy">Guy (Ninja)</a>
+					    <a href="/cc?themeId=ninjaanime&bs=girl">Girl (Ninja)</a>
+					    <hr />
+					    <h2>Peepz</h2>
+					    <a href="/cc?themeId=cc2&bs=default">Lil Peepz</a>
+					    <a href="/cc?themeId=chibi&bs=default">Chibi Peepz</a>
+					    <a href="/cc?themeId=ninja&bs=default">Chibi Ninjas</a>
+					</nav>
+			    </div>
+			    <div class="dropdown_contain button_small">
+				    <div class="dropdown_button">BROWSE CHARACTERS</div>
+					<nav class="dropdown_menu">
+						<h2>Comedy World</h2>
+					    <a href="/cc_browser?themeId=family">Comedy World</a>
+					    <hr />
+					    <h2>Anime</h2>
+					    <a href="/cc_browser?themeId=anime">Anime</a>
+					    <a href="/cc_browser?themeId=ninjaanime">Ninja Anime</a>
+					    <hr />
+					    <h2>Peepz</h2>
+					    <a href="/cc_browser?themeId=cc2">Lil' Peepz</a>
+					    <a href="/cc_browser?themeId=chibi">Chibi Peepz</a>
+					    <a href="/cc_browser?themeId=ninja">Chibi Ninjas</a>
+				    </nav>
+			    </div>
+				<a href="create.html" class="button_big">MAKE A VIDEO</a>
+			</nav>
+		</header>
+		<a href="javascript:switchList('videos')" id="videos_button" class="button_big">Your Videos</a>
+		<a href="javascript:switchList('watermarks')" id="watermarks_button" class="button_big inactive">Your Watermarks</a>
+		<a href="javascript:switchList('assets')" id="assets_button" class="button_big inactive">Your Assets</a>
+		<center>
+			<form id="html-importer" enctype='multipart/form-data' action='/api/asset/upload' method='post'>
+				<p>Because of the design of this importer, mutiple file selecting won't work correctly. so in this case, it won't be added.</p><br>
+				<input type="file" name='import' onchange="prepareImport()" accept=".gif,.jfif,.jpg,.png,.mp3,webm,.mp4"/><br>
+				<div id="importer-quene" style="display: none;">
+					<p>Import File As...</p>
+					<input type="radio" name="type" value="prop" required>Prop<br>
+					<input type="radio" name="type" value="bg" required>Background<br>
+					<input type="radio" name="type" value="soundeffect" required>Sound Effect<br>
+					<input type="radio" name="type" value="voiceover" required>Voice Over<br>
+					<input type="radio" name="type" value="bgmusic" required>Music<br>
+					<input type="hidden" name="redirect" value="true"/>
+					<input type="submit" value='Upload Asset' class="button_big inactive"/>
+				</div>
+			</form>
+		</center>
+		<div id="shade"></div>
+		<div id="modal"></div>
+		<main>
+			<table id="videos">
+				<thead>
+					<tr>
+						<td></td>
+						<td>Video Title</td>
+						<td>Last Modified</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody id="video-tbody"></tbody>
+			</table>
+			<table id="watermarks" style="display: none;">
+				<thead>
+					<tr>
+						<td></td>
+						<td>Watermark Title</td>
+						<td>Actions</td>
+					</tr>
+				</thead>
+				<tbody id="wtr-tbody"></tbody>
+			</table>
+			<table id="assets" style="display: none;">
+				<thead>
+					<tr>
+						<td></td>
+						<td>Asset Title</td>
+						<td>Actions</td>
+					</tr>
+				</thead>
+				<tbody id="asset-tbody"></tbody>
+			</table>
+		</main>
+		<div id="myFolders" style="display: none">
+			<p>Your Folders For Props (Beta) <button onclick="createNew('folder')">Create New</button></p>
+			<div id="myFolders-body"></div>
+		</div>
+		<footer>
+			<nav id="foot-left">
+				<a>v2.5.0</a>
+				<a href="https://rvlt.gg/4rz2Y4Gv">Revolt</a>
+				<a href="./settings.html">Settings</a>
+			</nav>
+		</footer>
+		<form enctype='multipart/form-data' action='/upload_movie' method='post'>
+			<input id='file' type="file" onchange="this.form.submit()" name='import' />
+		</form>
+		<form enctype='multipart/form-data' action='/upload_character' method='post'>
+			<input id='file2' type="file" onchange="this.form.submit()" name='import' />
+		</form>
+		<form enctype='multipart/form-data' action='/api/asset/upload' method='post'>
+			<input type="hidden" name="type" value="watermark"/>
+			<input id='file3' type="file" onchange="this.form.submit()" name='import' />
+		</form>
+	</body>
+</html>

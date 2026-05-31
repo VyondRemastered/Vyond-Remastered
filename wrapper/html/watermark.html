@@ -1,0 +1,186 @@
+<html lang="en"><head>
+
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    
+    <title>Watermarks  - GoAnimate for Schools Remastered</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="GoAnimate for Schools Remastered is a LVM that is a revival of GA4S">
+    
+    <meta property="og:site_name" content="GoAnimate for Schools Remastered">
+    
+    
+    
+    
+    <link rel="stylesheet" href="/html/school/css/common_combined.css.gz.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+    
+    <link rel="stylesheet" href="/html/school/css/videomaker.css.gz.css">
+    
+    <script>
+    var srv_tz_os = -4, view_name = "school", user_cookie_name = "u_info_school";
+    var user_country = "US";
+    </script>
+    
+    
+    <script src="/html/school/js/common_combined.js.gz.js"></script>
+    <script type="text/javascript" src="/html/go/po/goserver_js-en_US.json.gz.json"></script>
+    <script src="/pages/js/jquery.js"></script>
+    
+    </head>
+    <body class="page-action-videomaker" style="">
+    <nav class="navbar site-nav" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                <a class="navbar-brand" href="/movies" title="GoAnimate for Schools Remastered">
+                    <img src="/html/img/logo4s.png" alt="GoAnimate For Schools Remastered">
+                </a>
+            </div>
+    
+            <ul class="nav site-nav-alert-nav hidden-xs">
+                <li>
+                    <a href="/messages" title="Messages"><span class="glyphicon glyphicon-envelope"></span><span class="count"></span></a>
+                </li>
+                <li>
+                    <a href="/notifications" title="Notifications"><span class="glyphicon glyphicon-bell"></span><span class="count"></span></a>
+                </li>
+            </ul>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Your Account <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/dashboard">Dashboard</a></li>
+                            <li><a href="/movies">Your Videos</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/account">Account Settings</a></li>
+                            <li><a href="/html/watermark.html">Your Watermarks</a></li>
+                            <li class="divider"></li>
+                            <li><a class="logout-link" href="/logoff">Logout</a></li>
+                        </ul>
+                    </li><li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Explore <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/students">Students</a></li>
+                            <li><a href="/teachers">Teachers</a></li>
+                            <li><a href="/movies">Videos</a></li>
+                            <li class="divider"></li>
+                            <li><a href="https://discord.gg/bb8xXaWPv3">Educator Experiences</a></li>
+                            <li><a href="/public_faq">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="hidden-sm hidden-md hidden-lg" href="/create">Make a Video</a>
+                        <span class="site-nav-btn hidden-xs"><a class="btn btn-green" href="/create">Make a Video</a></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <center>
+            <h1>Your Watermarks</h1>
+            <a class="btn btn-orange" onclick="document.getElementById('file').click()">Upload Watermarks</a>
+            <h1 id="no-watermarks">No Watermarks</h1>
+        </center>
+    </div>
+    <form enctype='multipart/form-data' action='/ajax/saveUserProp' method='post' style="display: none;">
+        <input type="hidden" name="subtype" value="watermark"/>
+		<input id='file' type="file" onchange="this.form.submit()" name='import' accept=".png,.jpg,.gif,.swf" />
+	</form>
+    
+    
+    <div class="themes row" id="themes"></div>
+    
+    <script>
+        // lists all watermarks
+        $.get('/ajax/watermarks/list').done(json => {
+            if (json != "[]") $("#no-watermarks").hide();
+            const d = JSON.parse(json);
+            for (const meta of d) {
+                $("#themes").append(`<div class="col-sm-6 col-md-4 col-lg-4">
+        <div class="theme" id="thm-whiteboard">
+            <div class="theme-cell">
+                <div class="theme-cover launch">
+                    <img src="/assets/${meta.id}" alt="${meta.name}">
+                </div>
+                <div class="theme-meat">
+                    <div class="apps">
+                        <a id="delete_${meta.id.split("-")[0]}" class="btn btn-orange" onclick="deleteWatermark('${meta.id}', '${meta.name}')">Delete</a>
+                        <a id="${meta.id.split("-")[0]}" class="btn btn-default" onclick="useWatermark('${meta.id}', '${meta.name}')">Use In All Videos</a>
+                        <a>${meta.name}</a>
+                    </div>
+                </div>
+            </div>
+        </div>`);
+                // lists default watermarks
+                $.post('/ajax/watermarks/list').done(json => {
+                    const tbl = JSON.parse(json);
+                    if (tbl.xml.includes(meta.id)) {
+                        document.getElementById(`${meta.id.split("-")[0]}`).onclick = '';
+                        document.getElementById(`${meta.id.split("-")[0]}`).innerHTML = 'Using in all movies';
+                        document.getElementById(`delete_${meta.id.split("-")[0]}`).onclick = ``;
+                        document.getElementById(`delete_${meta.id.split("-")[0]}`).href = `javascript:deleteDefaultPerms('${meta.id}', '${meta.name}')`;
+                        document.getElementById(`delete_${meta.id.split("-")[0]}`).innerHTML = 'Stop Using in all movies';
+                    }
+                })
+            }
+        });
+        function useWatermark(id, name) {
+            const yesorno = confirm(`Are you sure that you want to use ${name} as a watermark in all of your movies? you can always change watermarks. This will not affect your current videos.`);
+            if (yesorno) $.post(`/ajax/watermark/use`, {id, use_watermark: true}).done(d => {
+                const meta = JSON.parse(d);
+                switch (meta.status) {
+                    case "error": {
+                        alert(`The Watermark: ${name} could not be put into use because something has happened in the server witch caused problems. please try again later.`);
+                        break;
+                    } case "ok": {
+                        window.location.reload();
+                        break;
+                    }
+                }
+            })
+        }
+        function deleteDefaultPerms(id, name) {
+            const yesorno = confirm(`Are you sure that you want to stop using ${name} as a watermark? Doing this means that you will no longer be able to use this watermark in your movie and you will be able to delete this watermark if you wanted to. This will not affect your current videos.`);
+            if (yesorno) $.post(`/ajax/watermark/use`, {id, delete_watermark: true}).done(d => {
+                const meta = JSON.parse(d);
+                switch (meta.status) {
+                    case "error": {
+                        alert(`The Watermark: ${name} has not had it's default perms deleted sucessfully because something has happened in the server witch caused problems. please try again later.`);
+                        break;
+                    } case "ok": {
+                        window.location.reload();
+                        break;
+                    }
+                }
+            })
+        }
+        function deleteWatermark(id, name) {
+            const yesorno = confirm(`Are you sure that you want delete ${name}? this action cannot be undone.`);
+            if (yesorno) $.post(`/ajax/watermark/delete`, {id}).done(d => {
+                const meta = JSON.parse(d);
+                switch (meta.status) {
+                    case "error": {
+                        alert(`The Watermark: ${name} could not be deleted because something has happened in the server witch caused problems. please try again later.`);
+                        break;
+                    } case "ok": {
+                        window.location.reload();
+                        break;
+                    }
+                }
+            })
+        }
+    </script>
+    
+    </body></html>

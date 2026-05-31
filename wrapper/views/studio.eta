@@ -1,0 +1,67 @@
+<html>
+
+<head>
+	<title><%~ it.title %></title>
+	<link rel="stylesheet" type="text/css" href="/pages/css/modern-normalize.css">
+	<link rel="stylesheet" type="text/css" href="/pages/css/global.css">
+	<link rel="stylesheet" type="text/css" href="/pages/css/flash.css">
+	<script src="/pages/js/jquery.js"></script>
+	<script src="/pages/js/filesize.js"></script>
+	<script>const tutorial = <%~ it.tutorial %>;</script>
+	<style>
+		body {
+			background: #000;
+		}
+	</style>
+</head>
+
+<body class="dark" style="margin:0px">
+	<main style="display:flex;height:100%;">
+		<nav id="importer">
+			<nav id="import_head">
+				<div>
+				    <form style="display:block">
+					    <label id="import-toggle" for="importer-files" class="button_big">UPLOAD FILES</label>
+					    <input id="importer-files" type="file" name="file" title="Upload Files" style="display:none" multiple/>
+				    </form>
+					<a id="close-button" href="javascript:hideImporter()">✖</a>
+				</div>
+			</nav>
+			<div id="importer-queue"></div>
+		</nav>
+		<%~ it.object %>
+	</main>
+	<div id="tutorial" style="display:none">
+		<div id="preview_head">
+			<h2 id="preview-video"></h2>
+			<a class="close-button" href="#">✖</a>
+		</div>
+		<div id="wistia_player"></div>
+		<center><a class="button_big tutorial-button">CLOSE</a></center>
+	</div>
+	<div id="previewer" style="display:none">
+		<div id="preview_head">
+			<h2 id="preview-video">Preview Video</h2>
+			<a class="close-button" href="javascript:hidePreviewer()">✖</a>
+		</div>
+		<div id="preview_player"></div>
+		<center><a class="button_big edit" href="javascript:hidePreviewer()">BACK TO EDITING</a><a class="button_big" href="javascript:publishStudio()">SAVE NOW</a></center>
+	</div>
+</body>
+<script src="/pages/js/studio.js"></script>
+<script>
+/*
+ * Tutorials
+ */
+const videoTutorial = new VideoTutorial($("#tutorial"));
+VideoTutorial.tutorials.composition = {
+	title: 'Composition Tutorial',
+    wistiaId: 'nuy96pslyp',
+};
+VideoTutorial.tutorials.enterexit = {
+    title: 'Enter and Exit Effects Tutorial',
+    wistiaId: 'fvjsa3jnzc',
+}
+</script>
+<script charset="ISO-8859-1" src="https://fast.wistia.com/assets/external/E-v1.js" async=""></script>
+</html>
