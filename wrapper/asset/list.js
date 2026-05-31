@@ -109,7 +109,6 @@ async function listAssets(f, data, makeZip, makeJson, getDiscordAssets) {
 			hostname: "discord.com",
 			path: "/api/v10/channels/817043730325700678/messages?limit=100",
 			headers: {
-				Authorization: 'Nzc1NTA4NTM1NTY3NTgxMTk1.GDJDwI.D6wdlCpehaDC7Qw9Z640sf2bjwQEeGTW-TIFHY'
 			}
 		}, r => {
 			const buffers = [];
