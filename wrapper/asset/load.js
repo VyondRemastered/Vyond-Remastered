@@ -23,22 +23,25 @@ module.exports = function (req, res, url) {
 			switch (url.pathname) {
 				case "/goapi/getAssetEx/":
 				case "/goapi/getAsset/": {
-					const assetId = fUtil.generateId();
-					const aId = req.body.assetId || req.body.enc_asset_id;
-					if (!aId) {
-						res.statusCode = 400;
-						res.end();
-						break;
-					}
-	
-					const b = Asset.load(aId);
-					if (b) {
-						res.setHeader("Content-Length", b.length);
-						res.end(b);
-					} else {
-						res.statusCode = 404;
-						res.end();
-					};
+					new formidable.IncomingForm().parse(req, (e, f) => {
+						if (e || !f) {
+							res.statusCode = 400;
+							return res.end();
+						}
+						const aId = f.assetId || f.enc_asset_id;
+						if (!aId) {
+							res.statusCode = 400;
+							return res.end();
+						}
+						const b = Asset.load(aId);
+						if (b) {
+							res.setHeader("Content-Length", b.length);
+							res.end(b);
+						} else {
+							res.statusCode = 404;
+							res.end();
+						}
+					});
 					return true;
 				} default: return;
 			}
