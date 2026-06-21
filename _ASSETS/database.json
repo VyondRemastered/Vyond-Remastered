@@ -1,9 +1,9 @@
 {
-	"assets": [
-		{
-		}
-	],
+	"assets": [],
 	"movieDates": {
+		"0c1ca37": {
+			"date": "6/21/2026"
+		}
 	},
 	"folders": [],
 	"movies": []

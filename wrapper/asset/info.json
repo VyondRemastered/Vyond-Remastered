@@ -6,7 +6,6 @@
 		"png": true
 	},
     "font": {
-		"swf": true,
 		"ttf": true,
 		"otf": true
     },
@@ -32,6 +31,8 @@
 	},
 	"video": {
 		"webm": true,
+		"swf": true,
+		"flv": true,
 		"mp4": true
 	}
 }

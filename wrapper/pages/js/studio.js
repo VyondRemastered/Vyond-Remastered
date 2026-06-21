@@ -192,7 +192,7 @@ class AssetImporter {
 							</div>
 						</div>
 						<div class="import_as">
-							<p>Video importing won't be added because most of you are used to including videos in your animation using a video editor. it's also because it tends to be dodgy according to David's Creation and it is very hard to work on. not sure how the devs in wrapper offline managed to pull off a stunt like that.</p>
+							<a href="#" type="video">Import</a>
 							<a href="#" action="close">Close</a><a href="#" action="goBack">Back</a>
 						</div>
 					</div>
@@ -272,6 +272,9 @@ class ImporterFile {
 			case "font": {
 				return {type: "font", subtype: 0 }
 			}
+			case "video": {
+				return {type: "prop", subtype: type}
+			}	
 			case "bg":
 			case "prop":  {
 				return { type: type, subtype: 0 }

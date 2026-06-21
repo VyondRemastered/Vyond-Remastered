@@ -2,6 +2,7 @@
  * asset api
  */
 const fs = require("fs");
+const path = require("path");
 const database = require("../data/database"), DB = new database();
 const folder = `${__dirname}/../../${process.env.ASSET_FOLDER}`;
 const fUtil = require("../fileUtil");
@@ -67,54 +68,164 @@ module.exports = {
 		});
 		return count;
 	},
+	/**
+	 * Saves the asset and its metadata.
+	 * @param {fs.ReadStream} readStream 
+	 * @param {object} meta 
+	 * @returns {string}
+	 */
+	saveStream(readStream, meta) {
+    // Save asset info
+    const aId = `${fUtil.generateId()}.${meta.ext}`;
+    const db = DB.get();
+
+    let newMeta = {
+        id: aId,
+        tags: ""
+    };
+
+    // Special handling for videos
+    if (fileTypes.video[meta.ext]) {
+        meta = {
+            ...meta,
+            id: `${aId}.flv`,
+            enc_asset_id: `${aId}.flv`
+        };
+    }
+
+    // Redirect handling
+    if (f.redirect && !fileTypes.prop[meta.ext]) {
+        meta.redirect = f.redirect;
+    }
+
+    delete meta.ext;
+
+    Object.assign(newMeta, meta);
+
+    db.assets.unshift(newMeta);
+    DB.save(db);
+
+    // Save the file
+    const writeStream = fs.createWriteStream(
+        path.join(folder, aId)
+    );
+
+    readStream.resume();
+    readStream.pipe(writeStream);
+
+    return aId;
+},
+	createBubbleThumb(fontId) {
+    const theme = ThemeManager.instance.userTheme;
+
+    const bubbleThumb = new BubbleThumb();
+
+    const fontModel = FontManager
+        .getFontManager()
+        .getFontModelByFontId(fontId);
+
+    bubbleThumb.id = fontModel.value;
+    bubbleThumb.aid = fontModel.id;
+    bubbleThumb.encAssetId = fontModel.encAssetId;
+    bubbleThumb.tags = fontModel.tags;
+    bubbleThumb.name = fontModel.label;
+    bubbleThumb.enable = true;
+    bubbleThumb.editable = this.isAssetEditable;
+
+    bubbleThumb.setFileName(fontModel.id + ".swf");
+    bubbleThumb.imageData = bubbleThumb.getDefaultBubbleBody(fontModel.value);
+
+    bubbleThumb.type = "BLANK";
+    bubbleThumb.theme = theme;
+
+    theme.addThumb(bubbleThumb);
+
+    return bubbleThumb;
+},
 	listFolders() {
 		return DB.get().folders;
 	},
 	load(aId) { // look for match in folder
-		var match = false;
-		fs.readdirSync(folder).forEach(filename => {
-			if (filename.search(aId) !== -1) match = filename;
-		})
-		return match ? fs.readFileSync(`${folder}/${match}`) : null;
+			const match = this.exists(aId);
+			return match ? fs.readFileSync(path.join(folder, match)) : null;
 	},
+	exists(aId) { // look for match in folder
+			const match = fs.readdirSync(folder)
+				.find(file => file.includes(aId));
+			return match || false;
+	},	
 	meta(aId) {
-		const met = DB.get().assets.find(i => i.id == aId);
-		if (!met) {
-			console.error("Asset metadata doesn't exist! Asset id:", aId);
-			return {status: "error", msg: "invalid_asset"};
-		}
-		return { // return only the important metadata
-			status: "ok",
-			data: met
-		};
+    const met = DB.get().assets.find(i =>
+        i.id === aId ||
+        i.id === `${aId}.flv` ||
+        i.enc_asset_id === aId
+    );
+
+    if (!met) {
+        console.error("Asset metadata doesn't exist! Asset id:", aId);
+        return { status: "error", msg: "invalid_asset" };
+    }
+
+    return {
+        status: "ok",
+        data: met
+    	};
 	},
 	save(buf, meta) {
-		// save asset info
-		const aId = fUtil.generateId();
-		const db = DB.get();
-		db.assets.unshift({ // base info, can be modified by the user later
-			id: aId,
-			enc_asset_id: aId,
-			themeId: meta.tId,
-			type: meta.type,
-			subtype: meta.subtype,
-			title: meta.title,
-			published: "",
-			share: {
-				type: "none"
-			},
-			tags: "",
-			duration: meta.duration,
-			file: `${aId}.${meta.ext}`,
-			signature: ""
-		});
-		DB.save(db);
-		// save the file
-		fs.writeFileSync(`${folder}/${aId}.${meta.ext}`, buf);
-		meta.file = `${aId}.${meta.ext}`;
-		meta.enc_asset_id = meta.id = aId;
-		if (meta.type == "sound" || meta.type == "video") fs.writeFileSync(`${folder}/${aId}.png`, fs.readFileSync(`./wrapper/pages/img/importer/${meta.type}.png`));
-		return aId;
+	// save asset info
+	const aId = fUtil.generateId();
+	const db = DB.get();
+
+	const asset = { // base info, can be modified by the user later
+		id: aId,
+		width: meta.width,
+		height: meta.height,
+		enc_asset_id: aId,
+		themeId: meta.tId,
+		type: meta.type,
+		subtype: meta.subtype,
+		title: meta.title,
+		published: "",
+		share: {
+			type: "none"
+		},
+		tags: "",
+		duration: meta.duration,
+		file: `${aId}.${meta.ext}`,
+		signature: ""
+	};
+
+	// Video-specific FLV handling
+	if (meta.type === "video") {
+		const asset = {
+		enc_asset_id: `${aId}.flv`,
+		id: `${aId}.flv`
+		}
+	}
+
+	db.assets.unshift(asset);
+	DB.save(db);
+
+	// save the original file
+	fs.writeFileSync(`${folder}/${aId}.${meta.ext}`, buf);
+
+	// save encoded FLV copy for videos
+	if (meta.type === "video") {
+		fs.writeFileSync(`${folder}/${aId}.flv`, buf);
+	}
+
+	meta.file = `${aId}.${meta.ext}`;
+	meta.enc_asset_id = asset.enc_asset_id;
+	meta.id = aId;
+
+	if (meta.type == "sound" || meta.type == "video") {
+		fs.writeFileSync(
+			`${folder}/${aId}.png`,
+			fs.readFileSync(`./wrapper/pages/img/importer/${meta.type}.png`)
+		);
+	}
+
+	return aId;
 	},
 	update(newInf) {
 		// set new info and save

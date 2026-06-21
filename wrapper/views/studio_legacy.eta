@@ -296,22 +296,13 @@ function proceedWithFullscreenStudio() {
 </script>
 
 
-<script id="importer-select-font-tmpl" type="text/x-jquery-tmpl">
-    <div class="dropdown">
-        <a class="import-as-btn dropdown-toggle" data-toggle="dropdown" href="#">Import as <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-            <li><a tabindex="-1" href="#" data-subtype="Font">Font</a></li>
-        </ul>
-    </div>
-</script>
-
-
 <script id="importer-select-prop-tmpl" type="text/x-jquery-tmpl">
     <div class="dropdown">
         <a class="import-as-btn dropdown-toggle" data-toggle="dropdown" href="#">Import as <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
             <li><a tabindex="-1" href="#" data-subtype="prop">Prop</a></li>
             <li><a tabindex="-1" href="#" data-subtype="bg">Background</a></li>
+            <li><a tabindex="-1" href="#" data-subtype="video">Video</a></li>
         </ul>
     </div>
 </script>

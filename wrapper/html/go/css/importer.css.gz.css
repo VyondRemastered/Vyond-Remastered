@@ -22,7 +22,7 @@
 }
     
 .ga-importer.show{left:0}.ga-importer-header{padding:10px;
-    border-bottom:1px solid #b5b5b5;
+    border-bottom:1px solid #000000;
     text-align:center}.ga-importer-collapse{display:block;position:absolute;
         top:-5px;
         right:3px;
@@ -86,7 +86,7 @@
 .ga-importer-results{background-color:#d6d6d6
 }
 
-.ga-importer-notice{border-bottom:1px dotted #b5b5b5;
+.ga-importer-notice{border-bottom:1px dotted #000000;
     font-size:11px;padding:10px
 }
 
@@ -201,8 +201,8 @@
 }
 
 .ga-importer-file-progress-bar{background-color:#fff;
-    border-top:1px solid #b5b5b5;
-    border-bottom:1px solid #b5b5b5;
+    border-top:1px solid #000000;
+    border-bottom:1px solid #000000;
     height:6px;
     width:38px;
     padding:1px;

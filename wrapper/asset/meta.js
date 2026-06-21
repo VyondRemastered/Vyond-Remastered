@@ -90,6 +90,8 @@ module.exports = function (req, res, url) {
 						}
 						const info2 = {
 							id,
+							width: meta.width,
+							height: meta.width,
 							enc_asset_id: id,
 							themeId: "ugc",
 							name: meta.title,
@@ -121,6 +123,8 @@ module.exports = function (req, res, url) {
 						}
 						const info2 = {
 							id,
+							width: meta.width,
+							height: meta.height,
 							enc_asset_id: id,
 							themeId: "ugc",
 							name: meta.title,
