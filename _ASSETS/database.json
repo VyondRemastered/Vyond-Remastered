@@ -1,9 +1,25 @@
 {
 	"assets": [
 		{
+			"id": "c50c76d",
+			"enc_asset_id": "c50c76d",
+			"themeId": "ugc",
+			"type": "prop",
+			"subtype": 0,
+			"title": "sigma!.png",
+			"published": "",
+			"share": {
+				"type": "none"
+			},
+			"tags": "",
+			"file": "c50c76d.png",
+			"signature": ""
 		}
 	],
 	"movieDates": {
+		"0c1ca37": {
+			"date": "6/21/2026"
+		}
 	},
 	"folders": [],
 	"movies": []

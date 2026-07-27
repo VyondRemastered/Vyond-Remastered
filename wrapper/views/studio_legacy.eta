@@ -400,6 +400,7 @@ src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAARAQAABAAQRFNJRw
             Release to start uploading        </div>
     </div>
     <div id="studio_holder" style="width: 960px;"><object data="animation/414827163ad4eb60/go_full.swf" type="application/x-shockwave-flash" id="Studio" width="100%" height="100%" class="flpl_initiated"><param name="align" value="middle"><param name="allowScriptAccess" value="always"><param name="allowFullScreen" value="true"><param name="wmode" value="window"><param name="flashvars" value="<%~ it.objectString %>"><param name="movie" value="animation/414827163ad4eb60/go_full.swf"></object></div>
+<<<<<<< HEAD
 </div>
 <!-- ============================================================
      IN-STUDIO CHARACTER CREATOR OVERLAY
@@ -612,3 +613,6 @@ src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAARAQAABAAQRFNJRw
 </script>
 
 </body></html>
+=======
+</div></body></html>
+>>>>>>> 864521a5c33bd82c251ef965ef593272afd38d90
