@@ -251,9 +251,10 @@ function proceedWithFullscreenStudio() {
         restoreStudio();
         document.getElementById("Studio").onExternalPreviewPlayerPublish();
     }
-    function exitStudio(share) {
-        loadedFullscreenStudio = false;
-    }
+    window.openCharacterCreator = function(url)
+    {
+        alert("CC URL: " + url);
+    };
     function quitStudio() { 
         for (let i = 0; i < 2; i++) window.history.back();
     }
@@ -296,22 +297,13 @@ function proceedWithFullscreenStudio() {
 </script>
 
 
-<script id="importer-select-font-tmpl" type="text/x-jquery-tmpl">
-    <div class="dropdown">
-        <a class="import-as-btn dropdown-toggle" data-toggle="dropdown" href="#">Import as <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-            <li><a tabindex="-1" href="#" data-subtype="Font">Font</a></li>
-        </ul>
-    </div>
-</script>
-
-
 <script id="importer-select-prop-tmpl" type="text/x-jquery-tmpl">
     <div class="dropdown">
         <a class="import-as-btn dropdown-toggle" data-toggle="dropdown" href="#">Import as <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
             <li><a tabindex="-1" href="#" data-subtype="prop">Prop</a></li>
             <li><a tabindex="-1" href="#" data-subtype="bg">Background</a></li>
+            <li><a tabindex="-1" href="#" data-subtype="video">Video</a></li>
         </ul>
     </div>
 </script>
@@ -408,4 +400,215 @@ src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAARAQAABAAQRFNJRw
             Release to start uploading        </div>
     </div>
     <div id="studio_holder" style="width: 960px;"><object data="animation/414827163ad4eb60/go_full.swf" type="application/x-shockwave-flash" id="Studio" width="100%" height="100%" class="flpl_initiated"><param name="align" value="middle"><param name="allowScriptAccess" value="always"><param name="allowFullScreen" value="true"><param name="wmode" value="window"><param name="flashvars" value="<%~ it.objectString %>"><param name="movie" value="animation/414827163ad4eb60/go_full.swf"></object></div>
-</div></body></html>
+</div>
+<!-- ============================================================
+     IN-STUDIO CHARACTER CREATOR OVERLAY
+     showCCBrowser(themeId) is called by the studio SWF via ExternalInterface.
+     It shows the cc_browser SWF first; when the user picks a character type
+     or clicks "Create New", we swap to the cc SWF inside the same overlay.
+     characterSaved() is called by the cc SWF when it finishes saving – we
+     then tell the studio to refresh its character library and close the overlay.
+============================================================ -->
+
+<style>
+#cc-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 9000;
+    background: rgba(0,0,0,0.7);
+    align-items: center;
+    justify-content: center;
+}
+#cc-overlay.visible {
+    display: flex;
+}
+#cc-modal {
+    background: #1a1a2e;
+    border-radius: 8px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.8);
+    width: 980px;
+    max-width: 98vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+#cc-modal-header {
+    background: #16213e;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #0f3460;
+}
+#cc-modal-title {
+    color: #fff;
+    font-size: 15px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    margin: 0;
+}
+#cc-modal-close {
+    color: #aaa;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0 4px;
+}
+#cc-modal-close:hover { color: #fff; }
+#cc-swf-container {
+    width: 980px;
+    max-width: 98vw;
+    height: 620px;
+    background: #000;
+    position: relative;
+}
+#cc-swf-container object,
+#cc-swf-container embed {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+</style>
+
+<div id="cc-overlay">
+    <div id="cc-modal">
+        <div id="cc-modal-header">
+            <span id="cc-modal-title">Character Browser</span>
+            <button id="cc-modal-close" onclick="hideCCBrowser()" title="Close">&times;</button>
+        </div>
+        <div id="cc-swf-container">
+            <!-- SWF injected dynamically by showCCBrowser / createNewChar -->
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    var _swfUrl    = "<%~ it.swfUrl %>";
+    var _storeUrl  = "<%~ it.storeUrl %>";
+    var _clientUrl = "<%~ it.clientUrl %>";
+
+    // Common flashvars shared by both the browser and the CC SWFs
+    function baseFlashvars(extra) {
+        var fv = Object.assign({
+            apiserver:       "/",
+            storePath:       _storeUrl  + "/<store>",
+            clientThemePath: _clientUrl + "/<client_theme>",
+            ut:              60,
+            appCode:         "go",
+            siteId:          "go",
+            m_mode:          "school",
+            isLogin:         "Y",
+            isEmbed:         1,
+            ctc:             "go",
+            tlang:           "en_US",
+        }, extra || {});
+        return fv;
+    }
+
+    function fvToString(fv) {
+        return Object.keys(fv).map(function(k) {
+            return encodeURIComponent(k) + "=" + encodeURIComponent(fv[k]);
+        }).join("&");
+    }
+
+    function makeObject(swfSrc, fvStr) {
+        return '<object type="application/x-shockwave-flash"'
+             + ' data="' + swfSrc + '"'
+             + ' width="100%" height="100%"'
+             + ' id="cc_swf_embed">'
+             + '<param name="movie" value="' + swfSrc + '">'
+             + '<param name="flashvars" value="' + fvStr + '">'
+             + '<param name="allowScriptAccess" value="always">'
+             + '<param name="wmode" value="opaque">'
+             + '</object>';
+    }
+
+    // Called by the studio SWF (ExternalInterface) when user clicks Add Character
+    window.showCCBrowser = function(themeId) {
+        themeId = themeId || "family";
+
+        var overlay = document.getElementById("cc-overlay");
+        var container = document.getElementById("cc-swf-container");
+        var title = document.getElementById("cc-modal-title");
+
+        title.textContent = "Character Browser – " + themeId;
+
+        var fv = baseFlashvars({
+            themeId:  themeId,
+            page:     "",
+            lid:      13,
+            retut:    1,
+            goteam_draft_only: 1,
+        });
+
+        container.innerHTML = makeObject(_swfUrl + "/cc_browser.swf", fvToString(fv));
+        overlay.classList.add("visible");
+
+        // Shrink studio so it doesn't render under the overlay (same as previewSceen)
+        previewSceen();
+
+        return false;
+    };
+
+    // Called by cc_browser SWF (ExternalInterface) when user selects a character type
+    // or clicks "Create New Character". themeId = theme, bs = body style, copyId = optional
+    window.createNewChar = function(themeId, bs, copyId) {
+        themeId = themeId || "family";
+        bs      = bs      || "adam";
+
+        var container = document.getElementById("cc-swf-container");
+        var title     = document.getElementById("cc-modal-title");
+
+        title.textContent = "Character Creator";
+
+        var extra = {
+            themeId:           themeId,
+            bs:                bs,
+            original_asset_id: copyId || "",
+            page:              "",
+        };
+        if (copyId) {
+            extra.noCopy = 0; // editing a copy
+        }
+
+        var fv = baseFlashvars(extra);
+        container.innerHTML = makeObject(_swfUrl + "/cc.swf", fvToString(fv));
+
+        return false;
+    };
+
+    // Called by the cc SWF (ExternalInterface) when character is saved successfully.
+    // charId is the saved asset id returned by /goapi/saveCCCharacter/
+    window.characterSaved = function(charId) {
+        hideCCBrowser();
+        // Tell the studio SWF to refresh the user's character library
+        try {
+            var studioEl = document.getElementById("Studio");
+            if (studioEl && studioEl.userCharacterSaved) {
+                studioEl.userCharacterSaved(charId);
+            }
+        } catch(e) { console.warn("characterSaved callback:", e); }
+    };
+
+    // Close the overlay and restore the studio
+    window.hideCCBrowser = function() {
+        var overlay   = document.getElementById("cc-overlay");
+        var container = document.getElementById("cc-swf-container");
+
+        overlay.classList.remove("visible");
+
+        // Destroy the SWF so it stops running/using memory
+        container.innerHTML = "";
+
+        restoreStudio();
+        return false;
+    };
+
+})();
+</script>
+
+</body></html>

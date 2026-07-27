@@ -1,8 +1,15 @@
 /***
  * asset upload route
  */
+const ffmpeg = require("fluent-ffmpeg");
+ffmpeg.setFfmpegPath(require("@ffmpeg-installer/ffmpeg").path);
+ffmpeg.setFfprobePath(require("@ffprobe-installer/ffprobe").path);
+const pathModule = require("path");
+const os = require("os");
+const { fromFile } = require("file-type");
 const formidable = require("formidable");
 const param3 = Object
+const createBubbleThumb = require("./bubble");
 const fileTypes = require("./info.json");
 const fUtil = require("../fileUtil");
 const fs = require("fs");
@@ -31,16 +38,95 @@ module.exports = function (req, res, url) {
 					} else {
 						const db = DB.get();
 						const id = fUtil.generateId();
-						const type = f.subtype == "soundeffect" || f.subtype == "voiceover" || f.subtype == "bgmusic" ? "sound" : f.subtype || "font";
+						console.log("subtype =", f.subtype);
+						// Normalise subtype: legacy template sends "Video" (capital V), lowercase it
+						const rawSubtype = (f.subtype || "").toLowerCase();
+						let type = rawSubtype == "soundeffect" || rawSubtype == "voiceover" || rawSubtype == "bgmusic" ? "sound" : rawSubtype || "font";
 						const file = files.file || files.import;
 						const path = file.path || file.filepath;
 						const name = file.name || file.originalFilename;
 						const dot = name.lastIndexOf(".");
-						const ext = name.substr(dot + 1);
+						const ext = name.substr(dot + 1).toLowerCase();
+						const folder = process.env.ASSET_FOLDER;
+
+						// Handle video uploads first: convert to FLV and respond immediately
+						if (fileTypes.video[ext]) {
+							const assetId = fUtil.generateId();
+							const oldPath = pathModule.join(folder, `${assetId}.mp4`);
+							const newPath = pathModule.join(folder, `${assetId}.flv`);
+							fs.copyFileSync(path, oldPath);
+							let aId;
+							let videoMeta;
+							await new Promise((resolve, reject) => {
+								ffmpeg.ffprobe(oldPath, (err, data) => {
+									if (err) return reject(err);
+									ffmpeg(oldPath)
+										.output(newPath)
+										.on("end", () => {
+											videoMeta = {
+												type: "prop",
+												width: data.streams[0].width,
+												height: data.streams[0].height,
+												subtype: "video",
+												title: name.substring(0, name.lastIndexOf(".")),
+												ext: "flv",
+												ptype: "placeable",
+												tId: "ugc"
+											};
+											const converted = fs.readFileSync(newPath);
+											aId = asset.save(converted, videoMeta);
+											const dbNow = DB.get();
+											const assetInfo = dbNow.assets.find(v => v.id === aId);
+											if (assetInfo) {
+												assetInfo.enc_asset_id = `${aId}.flv`;
+												assetInfo.id = `${aId}.flv`;
+												DB.save(dbNow);
+											}
+											ffmpeg(oldPath)
+												.screenshots({
+													timestamps: ["0"],
+													filename: `${aId}.png`,
+													folder
+												})
+												.on("end", resolve)
+												.on("error", reject);
+										})
+										.on("error", reject)
+										.run();
+								});
+							});
+							fs.unlinkSync(oldPath);
+							try { fs.unlinkSync(newPath); } catch(_) {}
+							fs.unlinkSync(path);
+							const videoAssetId = `${aId}.flv`;
+							const videoInfo = {
+								suc: true,
+								id: videoAssetId,
+								asset_type: "prop",
+								filename: name,
+								asset_data: {
+									id: videoAssetId,
+									enc_asset_id: videoAssetId,
+									themeId: "ugc",
+									type: "prop",
+									subtype: "video",
+									title: videoMeta.title,
+									published: "",
+									share: { type: "none" },
+									tags: "",
+									file: videoAssetId,
+									signature: "",
+									width: videoMeta.width,
+									height: videoMeta.height
+								}
+							};
+							res.end(JSON.stringify(videoInfo));
+							return;
+						}
+
 						const newName = `${id}.${ext}`;
 						const buffer = fs.readFileSync(path);
-						const folder = process.env.ASSET_FOLDER;
-						fs.writeFileSync(`${folder}/${newName}`, buffer);  
+						fs.writeFileSync(`${folder}/${newName}`, buffer);
 						const info = {
 							suc: true,
 							// gives meta for the importer js file to read
@@ -52,7 +138,7 @@ module.exports = function (req, res, url) {
 								enc_asset_id: id,
 								themeId: "ugc",
 								type,
-								subtype: type != "sound" ? 0 : f.subtype || 0,
+								subtype: type != "sound" ? 0 : rawSubtype || 0,
 								title: name,
 								published: "",
 								share: {
@@ -64,24 +150,40 @@ module.exports = function (req, res, url) {
 							}
 						}
 						switch (type) {
-							case "prop": {
-								info.thumbnail = `/assets/${newName}`;
-								info.asset_data.ptype = "placeable";
-								break;
-							} case "font": break;
-							case "sound": {
-								await new Promise((resolve, rej) => {
-									mp3Duration(buffer, (e, d) => {
-										info.asset_data.duration = 1e3 * d;
-										info.asset_data.downloadtype = "progressive";
-										resolve();
-									});
-								})
-								break;
-							} default: {
-								info.thumbnail = `/assets/${newName}`;
-								break;
-							} 
+						case "prop": {
+							if (f.redirect && !fileTypes.prop[ext]) {
+								res.statusCode = 302;
+								res.setHeader(
+									"Location",
+									`/error?err=File Type (${ext}) is not supported for prop importing.`
+								);
+								res.end();
+								return;
+							}
+							const propMeta = {
+								type: "prop",
+								subtype: 0,
+								title: name.substring(0, name.lastIndexOf(".")),
+								ext,
+								ptype: "placeable",
+								tId: "ugc"
+							};
+							asset.save(buffer, propMeta);
+							break;
+						}
+						case "sound": {
+							await new Promise((resolve, rej) => {
+								mp3Duration(buffer, (e, d) => {
+									info.asset_data.duration = 1e3 * d;
+									info.asset_data.downloadtype = "progressive";
+									resolve();
+								});
+							})
+							break;
+						} default: {
+							info.thumbnail = `/assets/${newName}`;
+							break;
+						} 
 						}
 						db.assets.unshift(info.asset_data);
 						DB.save(db);
@@ -149,28 +251,86 @@ module.exports = function (req, res, url) {
 						}
 						break;
 					} case "prop": {
-						if (f.redirect && !fileTypes.prop[ext]) {
-							if (fileTypes.video[ext]) {
-								res.statusCode = 302;
-								res.setHeader("Location", `/error?err=Video importing won't be added because it tends to be dodgy and it's hard to work on according to David's Creation. please import something else.`);
-								res.end();
-							} else {
-								res.statusCode = 302;
-								res.setHeader("Location", `/error?err=File Type (${ext}) is not supported for prop importing. please pick a different file type in order to do prop importing.`);
-								res.end();
-							}
-							return;
-						}
-						meta = {
-							type: "prop",
-							subtype: 0,
-							title: name.substring(0, name.lastIndexOf(".")),
-							ext: ext,
-							ptype: "placeable",
-							tId: "ugc"
-						}
-						asset.save(buffer, meta);
-						break;
+					if (fileTypes.video[ext]) {
+					const assetId = fUtil.generateId();
+					const folder = process.env.ASSET_FOLDER;
+
+					const oldPath = pathModule.join(folder, `${assetId}.mp4`);
+					const newPath = pathModule.join(folder, `${assetId}.flv`);
+
+					fs.copyFileSync(path, oldPath);
+
+					let aId;
+
+					await new Promise((resolve, reject) => {
+						ffmpeg.ffprobe(oldPath, (err, data) => {
+
+							if (err) return reject(err);
+							ffmpeg(oldPath)
+								.output(newPath)
+								.on("end", () => {
+									meta = {
+										type: "prop",
+										width: data.streams[0].width,
+										height: data.streams[0].height,
+										subtype: "video",
+										title: name.substring(0, name.lastIndexOf(".")),
+										ext: "flv",
+										ptype: "placeable",
+										tId: "ugc"
+									};
+									const converted = fs.readFileSync(newPath);
+									aId = asset.save(converted, meta);
+									const db = DB.get();
+									const assetInfo = db.assets.find(v => v.id === aId);
+
+									if (assetInfo) {
+										assetInfo.enc_asset_id = `${aId}.flv`;
+										assetInfo.id = `${aId}.flv`;
+										DB.save(db);
+									}
+
+									ffmpeg(oldPath)
+										.screenshots({
+											timestamps: ["0"],
+											filename: `${aId}.png`,
+											folder
+										})
+										.on("end", resolve)
+										.on("error", reject);
+								})
+								.on("error", reject)
+								.run();
+						});
+					});
+
+					fs.unlinkSync(oldPath);
+					fs.unlinkSync(newPath);
+
+					break;
+				}
+
+				if (f.redirect && !fileTypes.prop[ext]) {
+					res.statusCode = 302;
+					res.setHeader(
+						"Location",
+						`/error?err=File Type (${ext}) is not supported for prop importing.`
+					);
+					res.end();
+					return;
+				}
+
+				meta = {
+					type: "prop",
+					subtype: 0,
+					title: name.substring(0, name.lastIndexOf(".")),
+					ext,
+					ptype: "placeable",
+					tId: "ugc"
+				};
+
+				asset.save(buffer, meta);
+				break;
 					} case "bg": {
 						if (f.redirect && !fileTypes.bg[ext]) {
 							res.statusCode = 302;
@@ -188,7 +348,7 @@ module.exports = function (req, res, url) {
 						asset.save(buffer, meta);
 						break;
 					} case "font": {
-						this.createBubbleThumb(param3);
+						createBubbleThumb(param3);
 						if (f.redirect && !fileTypes.font[ext]) {
 							res.statusCode = 302;
 							res.setHeader("Location", `/error?err=File Type (${ext}) is not supported for font importing. please pick a different file type in order to do font importing.`);

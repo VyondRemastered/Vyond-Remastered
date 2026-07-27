@@ -137,7 +137,10 @@ module.exports = function tts(voiceName, text, headers) {
 													);
 												}
 
-												resolve(audioRes);
+												const audioBufs = [];
+												audioRes.on("data", (b) => audioBufs.push(b));
+												audioRes.on("end", () => resolve(Buffer.concat(audioBufs)));
+												audioRes.on("error", reject);
 											}
 										);
 

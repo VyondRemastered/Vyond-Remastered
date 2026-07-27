@@ -132,6 +132,10 @@ function name2Font(font) {
 }
 
 function meta2Xml(v) {
+    if (!v) {
+        console.error("meta2Xml received undefined metadata");
+        return "";
+	}
 	var response;
 	switch (v.type) {
 		case "char": {
@@ -147,19 +151,19 @@ function meta2Xml(v) {
 			break;
 		}
 		case "prop": {
-			if (v.subtype == "video") {
-				response = `<prop subtype="video" id="${v.file}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" holdable="0" headable="0" placeable="1" facing="left" width="0" height="0" asset_url="/assets/${v.file}"/>`;
-			} else {
-				response = `<prop subtype="0" id="${v.file}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" holdable="0" headable="0" placeable="1" facing="left" width="0" height="0" asset_url="/assets/${v.file}"/>`;
-			}
-			break;
+				if (v.subtype == "video") {
+					response = `<prop subtype="video" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" placeable="1" facing="left" width="${v.width}" height="${v.height}" asset_url="/assets/${v.id}"/>`;
+				} else {
+					response = `<prop subtype="0" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" ${v.ptype}="1" facing="left" width="0" height="0" asset_url="/assets/${v.id}"/>`;
+				}
+				break;
 		}
 		case "sound": {
 			response = `<sound subtype="${v.subtype}" id="${v.file}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" duration="${v.duration}" downloadtype="progressive"/>`;
 			break;
 		}
 	};
-	return response;
+	return response || "";
 }
 
 module.exports = {
@@ -211,6 +215,9 @@ module.exports = {
 						var fileName = pieces.join(".") + `.${ext}`;
 						if (!zip[fileName]) {
 							var buff = asset.load(pieces[2]);
+							console.log("Loading asset:", pieces[2]);
+							console.log("Buffer exists:", !!buff);
+							console.log("Buffer size:", buff && buff.length);
 							var meta = asset.meta(pieces[2]);
 							fUtil.addToZip(zip, fileName, buff);
 							ugcString += meta2Xml(meta.data);
@@ -247,6 +254,9 @@ module.exports = {
 									var fileName = pieces.join(".") + `.${ext}`;
 									if (!zip[fileName]) {
 										var buff = asset.load(pieces[2]);
+										console.log("Loading asset:", pieces[2]);
+										console.log("Buffer exists:", !!buff);
+										console.log("Buffer size:", buff && buff.length);
 										var meta = asset.meta(pieces[2]);
 										fUtil.addToZip(zip, fileName, buff);
 										ugcString += meta2Xml(meta.data);
@@ -368,6 +378,8 @@ module.exports = {
 
 		fUtil.addToZip(zip, 'themelist.xml', Buffer.from(`${header}<themes>${
 			themeKs.map(t => `<theme>${t}</theme>`).join('')}</themes>`));
+		console.log("UGC XML:");
+		console.log(ugcString + "</theme>");	
 		fUtil.addToZip(zip, 'ugc.xml', Buffer.from(ugcString + `</theme>`));
 		return await zip.zip();
 	},

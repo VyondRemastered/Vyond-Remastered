@@ -121,7 +121,8 @@ module.exports = function (req, res, url) {
 				goteam_draft_only: 1,
 				isLogin: "Y",
 				isWide: db.resolution || 1,
-				isRetro: db.resolution || 2,
+				isUltra: db.resolution || 2,
+				isRetro: db.resolution || 3,
 				lid: 0,
 				presaveId: presave,
 				nextUrl: "/ajax/goVideoList/",
@@ -178,7 +179,8 @@ module.exports = function (req, res, url) {
 				tm: "FIN",
 				uplp: 0,
 				isWide: db.resolution || 1,
-				isRetro: db.resolution || 2
+				isUltra: db.resolution || 2,
+				isRetro: db.resolution || 3
 			};
 			switch (filename) {
 				case "studio": {
@@ -227,7 +229,7 @@ module.exports = function (req, res, url) {
 			params = {
 				flashvars: {
 					'apiserver': '/', 'storePath': STORE_URL + '/<store>', 'ut': 60,
-					'autostart': 1, 'isRetro': db.resolution || 2, 'isWide': db.resolution || 1, 'clientThemePath': CLIENT_URL + '/<client_theme>',
+					'autostart': 1, 'isWide': db.resolution || 1, 'isUltra': db.resolution || 2, 'isRetro': db.resolution || 3, 'clientThemePath': CLIENT_URL + '/<client_theme>',
 				},
 				allowScriptAccess: 'always',
 				allowFullScreen: 'true',
