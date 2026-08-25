@@ -667,7 +667,7 @@
 			<selection type="facial" facial_id="head_neutral"/>
 			<selection type="lower_body" state_id="default"/>
 			<selection type="skeleton" state_id="stand"/>
-			<selection type="upper_body" state_id="walk"/>
+			<selection type="upper_body" state_id="default"/>
 		</action>
 		<action id="test" name="TEST ONLY" loop="Y" totalframe="1" enable="Y" is_motion="N">
 			<selection type="facial" facial_id="head_neutral"/>
@@ -679,7 +679,7 @@
 			<selection type="facial" facial_id="head_neutral"/>
 			<selection type="lower_body" state_id="default"/>
 			<selection type="skeleton" state_id="stand"/>
-			<selection type="upper_body" state_id="default"/>
+			<selection type="upper_body" state_id="walk"/>
 		</action>
 		<action id="stand3" name="Stand 3" loop="Y" totalframe="1" enable="Y" is_motion="N">
 			<selection type="facial" facial_id="head_neutral"/>
@@ -4893,14 +4893,12 @@
 	<component type="hair" id="089" path="089" name="089" thumb="thumbnail.swf" money="0" sharing="0" enable="Y">
 		<state id="default" filename="default.swf"/>
 	</component>
-	<!--
 	<component type="hair" id="090" path="090" name="090" thumb="thumbnail.swf" money="0" sharing="0" enable="Y">
 		<state id="default" filename="default.swf"/>
 	</component>
 	<component type="hair" id="091" path="091" name="091" thumb="thumbnail.swf" money="0" sharing="0" enable="Y">
 		<state id="default" filename="default.swf"/>
 	</component>
-	-->
 	<component type="hair" id="092" path="092" name="092" thumb="thumbnail.swf" money="0" sharing="0" enable="Y">
 		<state id="default" filename="default.swf"/>
 	</component>
@@ -5081,11 +5079,9 @@
 	<component type="facedecoration" id="032" path="032" name="032" thumb="thumbnail.swf" money="0" sharing="0" enable="Y">
 		<state id="default" filename="default.swf"/>
 	</component>
-	<!--
 	<component type="facedecoration" id="033" path="033" name="033" thumb="thumbnail.swf" money="0" sharing="0" enable="Y">
 		<state id="default" filename="default.swf"/>
 	</component>
-	-->
 	<component type="facedecoration" id="034" path="034" name="034" thumb="thumbnail.swf" money="0" sharing="0" enable="Y">
 		<state id="default" filename="default.swf"/>
 	</component>
@@ -5158,11 +5154,9 @@
 	<component type="facedecoration" id="057" path="057" name="057" thumb="thumbnail.swf" money="0" sharing="0" enable="Y">
 		<state id="default" filename="default.swf"/>
 	</component>
-	<!--
 	<component type="facedecoration" id="058" path="058" name="058" thumb="thumbnail.swf" money="0" sharing="0" enable="Y">
 		<state id="default" filename="default.swf"/>
 	</component>
-	-->
 	<component type="facedecoration" id="059" path="059" name="059" thumb="thumbnail.swf" money="0" sharing="0" enable="Y">
 		<state id="default" filename="default.swf"/>
 	</component>
