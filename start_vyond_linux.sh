@@ -1,4 +1,4 @@
-export WRAPPER_VER=2.5.0
+export WRAPPER_VER=2.5.2
 echo Starting Vyond Remastered... A new browser window should be open soon.
 FILE=./package-lock.json
 if test -f "$FILE"; then

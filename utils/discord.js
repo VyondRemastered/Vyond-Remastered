@@ -2,7 +2,7 @@ const database = require(`../wrapper/data/database`), DB = new database(true), d
 
 if (db.rpc == "true") {
 	const RPC = require("discord-rpc");
-	const version = "2.5.0";
+	const version = "2.5.2";
 
 	const rpc = new RPC.Client({
 		transport: "ipc"

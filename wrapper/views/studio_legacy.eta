@@ -103,7 +103,7 @@ if (self !== top) {
 
     var studio_data = {
         id: "Studio",
-        swf: "animation/414827163ad4eb60/go_full.swf",
+        swf: "animation/414827163ad4eb60/studio.swf",
         width: "100%",
         height: "100%",
 
@@ -227,7 +227,7 @@ function proceedWithFullscreenStudio() {
         }, {
             movieOwner: "", movieOwnerId: "", ut: "-1",
             movieLid: "8", movieTitle: "", movieDesc: "", userId: "", username: "", uemail: "",
-            apiserver: "/", thumbnailURL: "", copyable: "0", isPublished: "0", ctc: "go", tlang: "en_US", is_private_shared: "0",
+            apiserver: "/", thumbnailURL: "", copyable: "0", isPublished: "0", ctc: "go", tlang: "ja_JP", is_private_shared: "0",
             autostart: "1", appCode: "go", is_slideshow: "0", originalId: "0", is_emessage: "0", isEmbed: "0", refuser: "",
             utm_source: "", uid: "", isTemplate: "1", showButtons: "0", chain_mids: "", showshare: "0", averageRating: "",
                         s3base: "http://localhost:4343/",
@@ -399,7 +399,7 @@ src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAARAQAABAAQRFNJRw
         <div class="ga-import-dnd-hint">
             Release to start uploading        </div>
     </div>
-    <div id="studio_holder" style="width: 960px;"><object data="animation/414827163ad4eb60/go_full.swf" type="application/x-shockwave-flash" id="Studio" width="100%" height="100%" class="flpl_initiated"><param name="align" value="middle"><param name="allowScriptAccess" value="always"><param name="allowFullScreen" value="true"><param name="wmode" value="window"><param name="flashvars" value="<%~ it.objectString %>"><param name="movie" value="animation/414827163ad4eb60/go_full.swf"></object></div>
+    <div id="studio_holder" style="width: 960px;"><object data="animation/414827163ad4eb60/studio.swf" type="application/x-shockwave-flash" id="Studio" width="100%" height="100%" class="flpl_initiated"><param name="align" value="middle"><param name="allowScriptAccess" value="always"><param name="allowFullScreen" value="true"><param name="wmode" value="window"><param name="flashvars" value="<%~ it.objectString %>"><param name="movie" value="animation/414827163ad4eb60/studio.swf"></object></div>
 <<<<<<< HEAD
 </div>
 <!-- ============================================================
@@ -505,7 +505,7 @@ src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAARAQAABAAQRFNJRw
             isLogin:         "Y",
             isEmbed:         1,
             ctc:             "go",
-            tlang:           "en_US",
+            tlang:           "ja_JP",
         }, extra || {});
         return fv;
     }
@@ -546,7 +546,7 @@ src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAARAQAABAAQRFNJRw
             goteam_draft_only: 1,
         });
 
-        container.innerHTML = makeObject(_swfUrl + "/cc_browser.swf", fvToString(fv));
+        container.innerHTML = makeObject(_swfUrl + "/browser.swf", fvToString(fv));
         overlay.classList.add("visible");
 
         // Shrink studio so it doesn't render under the overlay (same as previewSceen)
@@ -577,7 +577,7 @@ src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAARAQAABAAQRFNJRw
         }
 
         var fv = baseFlashvars(extra);
-        container.innerHTML = makeObject(_swfUrl + "/cc.swf", fvToString(fv));
+        container.innerHTML = makeObject(_swfUrl + "/creator.swf", fvToString(fv));
 
         return false;
     };

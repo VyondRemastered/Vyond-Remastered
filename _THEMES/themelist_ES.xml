@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list version="1.0">
+    <fvm_meta theme_code="" is_biz="0" />
+	    <theme id="business" name="Negocios Amigable" thumb="" cc_theme_id="business" />
+        <theme id="whiteboard" name="Animación de Pizarra" cc_theme_id="whiteboard" />
+        <theme id="sticklybiz" name="Negocio de Palos" />
+        <theme id="bizmodels" name="Modelos de Negocio" />
+        <theme id="commoncraft" name="Artesanía Común" />
+        <theme id="infographics" name="Infografías en Vídeo" cc_theme_id="infographics" />
+        <theme id="Comm" name="Biblioteca Comunitaria" thumb="" />
+	<theme id="custom" name="Mundo de la Comedia" thumb="" cc_theme_id="family" />
+	<theme id="action" name="Pequeños Amigos" thumb="" cc_theme_id="cc2" />
+	<theme id="politics2" name="Casa Blanca" thumb="" cc_theme_id="politics2" />
+	<theme id="retro" name="Los Clásicos" thumb="ann-stand.swf" cc_theme_id="retro" />
+	<theme id="anime" name="Animación" thumb="" cc_theme_id="anime" />
+	<theme id="ninjaanime" name="Animación Ninja" thumb="" cc_theme_id="ninjaanime" />
+	<theme id="spacecitizen" name="Ciudadanos Espaciales" thumb="" cc_theme_id="spacecitizen" />
+	<theme id="chibi" name="Chibi Amigos" thumb="" cc_theme_id="chibi" />
+	<theme id="ninja" name="Ninjas Chibi" thumb="" cc_theme_id="ninja" />
+	<theme id="space" name="Amigos del Espacio" thumb="" cc_theme_id="space" />
+	<theme id="stick" name="Monigotes" thumb="" cc_theme_id="stick" />
+	<theme id="animal" name="Pequeñas Mascotas" thumb="" cc_theme_id="animal" />
+	<theme id="common" name="Común" thumb="matchboy-stand.swf" cc_theme_id="common" />
+	<word></word>
+	<whiteword />
+	<excludeAssetIDs />
+	<points money="0" sharing="0" />
+</list>

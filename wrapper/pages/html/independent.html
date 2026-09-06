@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="icon" href="../../favicon.ico" type="image/png">
+		<title>Vyond: Remastered's Independence Statement</title>
+		<meta name="description" content="Vyond: Remastered's Independence Statement">
+		<link rel="stylesheet" type="text/css" href="../css/modern-normalize.css">
+		<link rel="stylesheet" type="text/css" href="../css/global.css">
+		<link rel="stylesheet" type="text/css" href="../css/list.css">
+		<link rel="stylesheet" type="text/css" href="../css/window.css">
+		<script src="/pages/js/jquery.js"></script>
+        <header>
+			<a href="/">
+				<h1 style="margin:0"><img id="logo" src="../img/list_logo.png" alt="Vyond: Remastered"/></h1>
+			</a>
+			<nav id="headbuttons">
+				<div class="dropdown_contain button_small">
+					<div class="dropdown_button upload_button">UPLOAD</div>
+					<nav class="dropdown_menu">
+						<a onclick="document.getElementById('file').click()">Movie</a>
+						<a onclick="document.getElementById('file2').click()">Character</a>
+						<a onclick="document.getElementById('file3').click()">Watermark</a>
+					</nav>
+				</div>	
+				<div class="dropdown_contain button_small">
+					<div class="dropdown_button">CREATE A CHARACTER</div>
+					<nav class="dropdown_menu">
+						<h2>Comedy World</h2>
+						<a href="/character/creator?themeId=family&bs=adam">Guy (Adam)</a>
+					    <a href="/character/creator?themeId=family&bs=eve">Girl (Eve)</a>
+					    <a href="/character/creator?themeId=family&bs=bob">Fat (Bob)</a>
+					    <a href="/character/creator?themeId=family&bs=rocky">Buff (Rocky)</a>
+					    <hr />
+					    <h2>Business Friendly</h2>
+					    <a href="/character/creator?themeId=business&bs=default&ft=_sticky_filter_guy">Guy (Adam)</a>
+					    <a href="/character/creator?themeId=business&bs=default&ft=_sticky_filter_girl">Girl (Eve)</a>
+					    <a href="/character/creator?themeId=business&bs=heavy&ft=_sticky_filter_heavyguy">Fat (Bob)</a>
+					    <hr />
+						<h2>Whiteboard Animation</h2>
+						<a href="/character/creator?themeId=whiteboard&bs=default&ft=_sticky_filter_guy">Guy (Adam)</a>
+						<a href="/character/creator?themeId=whiteboard&bs=default&ft=_sticky_filter_girl">Girl (Eve)</a>
+					    <h2>Anime</h2>
+					    <a href="/character/creator?themeId=anime&bs=guy">Guy</a>
+					    <a href="/character/creator?themeId=anime&bs=girl">Girl</a>
+					    <a href="/character/creator?themeId=ninjaanime&bs=guy">Guy (Ninja)</a>
+					    <a href="/character/creator?themeId=ninjaanime&bs=girl">Girl (Ninja)</a>
+					    <hr />
+					    <h2>Peepz</h2>
+					    <a href="/character/creator?themeId=cc2&bs=default">Lil Peepz</a>
+					    <a href="/character/creator?themeId=chibi&bs=default">Chibi Peepz</a>
+					    <a href="/character/creator?themeId=ninja&bs=default">Chibi Ninjas</a>
+					</nav>
+			    </div>
+			    <div class="dropdown_contain button_small">
+				    <div class="dropdown_button">BROWSE CHARACTERS</div>
+					<nav class="dropdown_menu">
+						<h2>Comedy World</h2>
+					    <a href="/character/browser?themeId=family">Comedy World</a>
+					    <hr />
+					    <h2>Anime</h2>
+					    <a href="/character/browser?themeId=anime">Anime</a>
+					    <a href="/character/browser?themeId=ninjaanime">Ninja Anime</a>
+					    <hr />
+					    <h2>Peepz</h2>
+					    <a href="/character/browser?themeId=cc2">Lil' Peepz</a>
+					    <a href="/character/browser?themeId=chibi">Chibi Peepz</a>
+					    <a href="/character/browser?themeId=ninja">Chibi Ninjas</a>
+				    </nav>
+			    </div>
+				<a href="create.html" class="button_big">MAKE A VIDEO</a>
+			</nav>
+		</header>
+        <p>Hello.</p>
+        <p>As you well know, Vyond: Remastered is a Project which has been around for a few years now.</p>
+        <p>But I feel like it is an important time now as any to state a few things:</p>
+        <p>1. Vyond: Remastered (despite the name) is not in any way, shape or form endorsed by, or affiliated with Vyond, it is an independent project made by a passionate fan with love for the old themes and Adobe Flash.</p>
+        <p>2. Vyond: Remastered is, and will always be, Open Source Software, under the AGPL v3.0 License.</p>
+        <p>3. I believe in absolute creative freedom, and that you should be able to use this software as you please.</p>
+        <p>4. Vyond: Remastered will NEVER collect any data from you, and is ran locally on entirely Open Source software and libraries, however, Flash is a proprietary tool, and I cannot guarentee the privacy of it's usage.</p>
+        <p>5. Finally: I think it should be stated that the point of Vyond: Remastered is to inspire originality. You can use this software for whatever you want, but I think that these tools are best used for original content. not "Caillou breathes and gets grounded for 100 years", or "caillou does good at school and gets ungrounded" type shit.</p>
+        <o>That's all folks. - DavidsCreation, 6/9/2026</o>
+
+        <footer>
+			<nav id="foot-left">
+				<a>v2.5.0</a>
+				<a href="https://rvlt.gg/4rz2Y4Gv">Revolt</a>
+				<a href="./settings.html">Settings</a>
+			</nav>
+		</footer>
+		<form enctype='multipart/form-data' action='/upload_movie' method='post'>
+			<input id='file' type="file" onchange="this.form.submit()" name='import' />
+		</form>
+		<form enctype='multipart/form-data' action='/upload_character' method='post'>
+			<input id='file2' type="file" onchange="this.form.submit()" name='import' />
+		</form>
+		<form enctype='multipart/form-data' action='/api/asset/upload' method='post'>
+			<input type="hidden" name="type" value="watermark"/>
+			<input id='file3' type="file" onchange="this.form.submit()" name='import' />
+		</form>
+	</body>
+</html>

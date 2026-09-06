@@ -25,7 +25,7 @@ module.exports = function (req, res, url) {
 		fs.unlinkSync(path);
 
 		res.statusCode = 302;
-		const url = `/cc_browser?themeId=${theme}`
+		const url = `/character/browser?themeId=${theme}`
 		res.setHeader('Location', url);
 		res.end();
 	});

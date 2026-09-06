@@ -138,8 +138,32 @@ class AssetImporter {
 				`).appendTo(this.queue);
 				break;
 			}
+			case "swf":
+			{
+				validFileType = true;
+				el = $(`
+				<div class="importer_asset">
+					<div class="asset_metadata">
+						<img class="asset_preview" src="/pages/img/importer/image.png" />
+						<div>
+							<h4>${file.name}</h4>
+							<p class="asset_subtype">${filesize(file.size)} | Import as...</p>
+						</div>
+					</div>
+					<div class="import_as">
+						<a href="#" type="bg">Background</a>
+						<a href="#" type="prop">Prop</a>
+						<a href="#" type="font">Font</a>
+						<a href="#" action="close">Close</a>
+						<a href="#" action="goBack">Back</a>
+					</div>
+				</div>
+					`).appendTo(this.queue);
+				break;
+			}
 			case "ttf":
-			case "otf": {
+			case "otf":
+			{
 				validFileType = true;
 				el = $(`
 				<div class="importer_asset">
@@ -161,7 +185,6 @@ class AssetImporter {
 			}
 			case "gif":
 			case "jfif":
-			case "swf":
 			case "jpg":
 			case "webp":
 			case "avif":

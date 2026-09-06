@@ -31,12 +31,12 @@ module.exports = function (req, res, url) {
 	const CLIENT_URL = process.env.CLIENT_URL.replace("127.0.0.1", "localhost");
 	var attrs, params, title, filename;
 	switch (url.pathname) {
-		case "/cc": {
+		case "/character/creator": {
 			discord("Creating a character");
 			title = "Character Creator";
 			filename = "char";
 			attrs = {
-				data: SWF_URL + "/cc.swf", // data: "cc.swf",
+				data: SWF_URL + "/creator.swf", // data: "creator.swf",
 				type: "application/x-shockwave-flash", 
 				id: "char_creator", 
 				width: "960", 
@@ -62,17 +62,17 @@ module.exports = function (req, res, url) {
 					"clientThemePath": CLIENT_URL + "/<client_theme>"
 				},
 				allowScriptAccess: "always",
-				movie: SWF_URL + "/cc.swf", // "http://localhost/cc.swf"
+				movie: SWF_URL + "/creator.swf", // "http://localhost/creator.swf"
 			};
 			break;
 		}
 		
-		case "/cc_browser": {
+		case "/character/browser": {
 			discord("Browsing some characters");
 			title = "CC Browser";
 			filename = "char";
 			attrs = {
-				data: SWF_URL + "/cc_browser.swf", // data: 'cc_browser.swf',
+				data: SWF_URL + "/browser.swf", // data: 'browser.swf',
 				type: "application/x-shockwave-flash",
 				id: "char_creator",
 				width: '100%', 
@@ -100,7 +100,7 @@ module.exports = function (req, res, url) {
 					lid: 13,
 				},
 				allowScriptAccess: "always",
-				movie: SWF_URL + "/cc_browser.swf", // 'http://localhost/cc_browser.swf'
+				movie: SWF_URL + "/browser.swf", // 'http://localhost/browser.swf'
 			};
 			break;
 		}
@@ -116,6 +116,7 @@ module.exports = function (req, res, url) {
 			let newFlashvars = {
 				isWixPaid: 1,
 				appCode: "go",
+				tlang: "en_US",
 				collab: 0,
 				ctc: "go",
 				goteam_draft_only: 1,
@@ -130,7 +131,6 @@ module.exports = function (req, res, url) {
 				retut: 1,
 				siteId: "11",
 				tray: "custom",
-				tlang: "en_US",
 				ut: 60,
 				apiserver: "/",
 				clientThemePath: CLIENT_URL + "/<client_theme>",
@@ -139,6 +139,7 @@ module.exports = function (req, res, url) {
 				presaveId: presave,
 				loadas: 0,
 				asId: "",
+				tlang: "es_ES",
 				originalId: "",
 				apiserver: "/",
 				clientThemePath: "/static/ad44370a650793d9/<client_theme>",
@@ -153,7 +154,6 @@ module.exports = function (req, res, url) {
 				lid: 0,
 				ctc: "go",
 				themeColor: "black",
-				tlang: "en_US",
 				siteId: "11",
 				templateshow: "false",
 				forceshow: "false",
@@ -192,15 +192,14 @@ module.exports = function (req, res, url) {
 				}
 			}
 			switch (db.year) {
-				case "late_2015":
-				case "2015": {
-					flashvars.storePath = "/store/50/<store>";
-					attrs.data = flashvars.bgload = `/animation/a0ecfa2ef0a868c4/go_full_${db.year}.swf`;
-					flashvars.animationPath = `/animation/a0ecfa2ef0a868c4/`
+				case "dark": {
+					flashvars.storePath = "/store/3a981f5cb2739137/<store>";
+					attrs.data = flashvars.bgload = SWF_URL + `/studio.swf`;
+					flashvars.animationPath = `/animation/414827163ad4eb60/dark`
 					break;
 				} case "2016": {
 					flashvars.storePath = "/store/3a981f5cb2739137/<store>";
-					attrs.data = flashvars.bgload = SWF_URL + `/${config.lvmType}.swf`;
+					attrs.data = flashvars.bgload = SWF_URL + `/studio.swf`;
 					flashvars.animationPath = `/animation/414827163ad4eb60/`
 					break;
 				} default: {
@@ -218,7 +217,7 @@ module.exports = function (req, res, url) {
 			break;
 		}
 
-		case '/player': {
+		case '/movie': {
 			discord("Watching a video");
 			title = 'Video Player';
 			filename = "player";

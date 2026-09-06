@@ -30,12 +30,6 @@ function createUGC() {
    HELPERS
 ========================= */
 
-function getFontThumbFileName(id) {
-    return fs
-        .readdirSync(`./_ASSETS/img`)
-        .find(file => file.endsWith(`_${id}.png`));
-}
-
 function charThemeFix(themeId) {
     switch (themeId) {
         case "custom": return "family";
@@ -43,6 +37,30 @@ function charThemeFix(themeId) {
         case "action": return "cc2";
         default: return themeId;
     }
+}
+
+/* =========================
+   FONT LIST (shared by /api_v2/assets/imported?type=font
+   and the dedicated /goapi/getUserFontList/ route that
+   Console.loadCustomFontList() actually calls on startup)
+========================= */
+
+function getFontList() {
+    return {
+        status: "ok",
+        result: asset.list("font").map(v => {
+            const bareId = v.id.split(".zip")[0];
+            return {
+                id: bareId,
+                tags: v.tags,
+                published: v.published,
+                title: v.title,
+                enc_asset_id: v.enc_asset_id,
+                fontPath: `/assets/${bareId}.swf`,
+                trayImage: `/assets/${bareId}.png`
+            };
+        })
+    };
 }
 
 /* =========================
@@ -55,17 +73,7 @@ async function listAssets(f, data, makeZip, makeJson) {
     switch (data.type) {
 
         case "font": {
-            return {
-                status: "ok",
-                result: asset.list("font").map(v => ({
-                    id: v.id,
-                    tags: v.tags,
-                    published: v.published,
-                    title: v.title,
-                    enc_asset_id: v.enc_asset_id,
-                    trayImage: `/assets/${v.id.split(".zip")[0]}/img/${getFontThumbFileName(v.id.split(".zip")[0])}`
-                }))
-            };
+            return getFontList();
         }
 
         case "char": {
@@ -147,6 +155,24 @@ function formatOutput(xml, makeZip, makeJson) {
 
 module.exports = function (req, res, url) {
     let makeZip = false, makeJson = false, useDiscord = false;
+
+    if (url.pathname === "/goapi/getUserFontList/" && req.method === "POST") {
+        new formidable.IncomingForm().parse(req, (e) => {
+            if (e) {
+                res.statusCode = 500;
+                res.end(JSON.stringify({ status: "error" }));
+                return;
+            }
+            res.setHeader("Content-Type", "application/json");
+            try {
+                res.end(JSON.stringify(getFontList()));
+            } catch (err) {
+                console.error("getUserFontList failed:", err);
+                res.end(JSON.stringify({ status: "ok", result: [] }));
+            }
+        });
+        return true;
+    }
 
     switch (url.pathname) {
     case "/goapi/getUserAssets/":

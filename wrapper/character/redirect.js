@@ -11,20 +11,20 @@ const defaultTypes = {
  * @returns {boolean}
  */
 module.exports = function (req, res, url) {
-	if (req.method != "GET" || !url.pathname.startsWith("/go/character_creator")) return;
-	var match = /\/go\/character_creator\/(\w+)(\/\w+)?(\/.+)?$/.exec(url.pathname);
+	if (req.method != "GET" || !url.pathname.startsWith("/character/creator")) return;
+	var match = /\/character\/creator\/(\w+)(\/\w+)?(\/.+)?$/.exec(url.pathname);
 	if (!match) return;
 	[, theme, mode, id] = match;
 
 	var redirect;
 	switch (mode) {
 		case "/copy": {
-			redirect = `/cc?themeId=${theme}&original_asset_id=${id.substr(1)}`;
+			redirect = `/character/creator?themeId=${theme}&original_asset_id=${id.substr(1)}`;
 			break;
 		}
 		default: {
 			var type = url.query.type || defaultTypes[theme] || "";
-			redirect = `/cc?themeId=${theme}&bs=${type}`;
+			redirect = `/character/creator?themeId=${theme}&bs=${type}`;
 			break;
 		}
 	}

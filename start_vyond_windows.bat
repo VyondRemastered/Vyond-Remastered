@@ -1,6 +1,6 @@
 :: Vyond: Remastered Launcher
 :: License: MIT
-set WRAPPER_VER=2.5.0
+set WRAPPER_VER=2.5.2
 set OS_USED=Windows
 set NODE_ENV=dev
 title Vyond: Remastered v%WRAPPER_VER% [Initializing...]

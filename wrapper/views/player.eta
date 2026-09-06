@@ -1,16 +1,864 @@
-<html>
+<html><head>
 
-<head>
-	<title><%~ it.title %></title>
-	<link rel="stylesheet" type="text/css" href="/pages/css/modern-normalize.css">
-	<link rel="stylesheet" type="text/css" href="/pages/css/global.css">
-	<link rel="stylesheet" type="text/css" href="/pages/css/flash.css">
-</head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<body style="margin:0px">
-	<main>
-		<%~ it.object %>
-	</main>
-</body>
+<script>
+    // Load the movie ID directly from /movie?movieId=...
+    var playerMovieParams = new URLSearchParams(window.location.search);
+    var playerMovieId = playerMovieParams.get('movieId');
+    var thumbnailUrl = '/movie_thumbs/' + encodeURIComponent(playerMovieId || '');
+    var movieInfo = null;
+    var playerResolution = '0';
+    var playerAspect = { width: 14, height: 9, label: '14:9' };
+</script>
+<title id="page-title">Your Video - Made with Vyond Remastered</title>
 
-</html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="title" id="meta-title" content="Your Video - Made with Vyond Remastered">
+<meta name="description" id="meta-description" content="Watch this video on Vyond Remastered.">
+<link rel="video_src" href="http://localhost:4343/animation/414827163ad4eb60/player.swf">
+<meta name="video_height" content="309">
+<meta name="video_width" content="550">
+<meta name="video_type" content="application/x-shockwave-flash">
+<meta name="medium" content="video">
+
+<link href="http://localhost:4343/pages/css/common_combined.css.gz.css" rel="stylesheet" type="text/css">
+
+<link href="http://localhost:4343/pages/css/video.css.gz.css" rel="stylesheet" type="text/css">
+<link href="http://localhost:4343/pages/css/bootstrap-tokenfield-addon.css.gz.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" async="" src="http://localhost:4343/html/js/amplitude-4.1.1-min.gz.js"></script><script type="text/javascript" async="" src="http://localhost:4343/html/js/amplitude-4.1.1-min.gz.js"></script><script type="text/javascript" async="" src="http://localhost:4343/html/js/amplitude-4.1.1-min.gz.js"></script><script type="text/javascript" async="" src="http://localhost:4343/html/js/amplitude-4.1.1-min.gz.js"></script><script type="text/javascript" async="" src="http://localhost:4343/html/js/amplitude-4.1.1-min.gz.js"></script><script>
+var srv_tz_os = -4, view_name = "go", user_cookie_name = "u_info";
+var user_role = null;
+</script>
+
+<script src="http://localhost:4343/html/js/common_combined.js.gz.js"></script>
+<script type="text/javascript">
+var I18N_LANG = 'en_US';
+var GT = new Gettext({'locale_data': json_locale_data});
+</script>
+
+
+
+<script type="text/javascript">
+
+</script>
+<script>
+zE(function() {
+    zE.hide();
+});
+</script>
+
+<script type="text/javascript">
+(function(e,t){var n=e.amplitude||{_q:[],_iq:{}};var r=t.createElement("script")
+;r.type="text/javascript";r.async=true
+;r.src="http://localhost:4343/html/js/amplitude-4.1.1-min.gz.js"
+;r.onload=function(){if(e.amplitude.runQueuedFunctions){
+e.amplitude.runQueuedFunctions()}else{
+console.log("[Amplitude] Error: could not load SDK")}}
+;var i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)
+;function s(e,t){e.prototype[t]=function(){
+this._q.push([t].concat(Array.prototype.slice.call(arguments,0)));return this}}
+var o=function(){this._q=[];return this}
+;var a=["add","append","clearAll","prepend","set","setOnce","unset"]
+;for(var u=0;u<a.length;u++){s(o,a[u])}n.Identify=o;var c=function(){this._q=[]
+;return this}
+;var l=["setProductId","setQuantity","setPrice","setRevenueType","setEventProperties"]
+;for(var p=0;p<l.length;p++){s(c,l[p])}n.Revenue=c
+;var d=["init","logEvent","logRevenue","setUserId","setUserProperties","setOptOut","setVersionName","setDomain","setDeviceId","setGlobalUserProperties","identify","clearUserProperties","setGroup","logRevenueV2","regenerateDeviceId","logEventWithTimestamp","logEventWithGroups","setSessionId"]
+;function v(e){function t(t){e[t]=function(){
+e._q.push([t].concat(Array.prototype.slice.call(arguments,0)))}}
+for(var n=0;n<d.length;n++){t(d[n])}}v(n);n.getInstance=function(e){
+e=(!e||e.length===0?"$default_instance":e).toLowerCase()
+;if(!n._iq.hasOwnProperty(e)){n._iq[e]={_q:[]};v(n._iq[e])}return n._iq[e]}
+;e.amplitude=n})(window,document);
+
+var amplitudeConfig = {
+    apiKey: '4c9fffdee3fb26c43dd66c70698c5a8f',
+    userId: '',
+    userEmail: ''
+};
+
+amplitude.getInstance().init(
+    amplitudeConfig.apiKey,
+    null,
+    {
+        includeUtm: true,
+        includeReferrer: true
+    },
+    amplitudeCallBack
+);
+
+function amplitudeCallBack() {
+    var cookie_string = "amplitudeSessionId" + "=" + encodeURIComponent(amplitude.getInstance().getSessionId());
+    document.cookie = cookie_string;
+}
+
+if (amplitudeConfig.userId !== '') {
+    amplitude.getInstance().setUserId(amplitudeConfig.userId);
+    amplitude.getInstance().setUserProperties({
+        email: amplitudeConfig.userEmail
+    });
+}
+
+/**
+ * UTM utility.
+ */
+var utmUtil = (function() {
+
+    'use strict';
+
+    var getUTMParameters;
+
+    /**
+     * Gets UTM parameters.
+     *
+     * @return {Object} A JSON object containing the properties source
+     *                    (utm_source), medium (utm_medium), term (utm_term),
+     *                    content (utm_content) and name (utm_campaign).
+     */
+    getUTMParameters = function() {
+        var queryString = window.location.search.substring(1),
+            parameters,
+            parameterIndex,
+            parametersCount,
+            parameterPair,
+            parameterName,
+            parameterValue,
+            parameterObject = {
+                source: null,
+                medium: null,
+                term: null,
+                content: null,
+                name: null
+            };
+        // No query string at all.
+        if (queryString === '') {
+            return parameterObject;
+        }
+        parameters = queryString.split('&');
+        parametersCount = parameters.length;
+        for (parameterIndex = 0; parameterIndex < parametersCount; parameterIndex++) {
+            parameterPair = parameters[parameterIndex].split('=');
+            if (parameterPair.length !== 2) {
+                continue;
+            }
+            parameterName = parameterPair[0];
+            parameterValue = parameterPair[1];
+            // Filter out non-UTM parameters.
+            switch (parameterName) {
+                case 'utm_source':
+                    parameterObject.source = parameterValue;
+                    break;
+                case 'utm_medium':
+                    parameterObject.medium = parameterValue;
+                    break;
+                case 'utm_term':
+                    parameterObject.term = parameterValue;
+                    break;
+                case 'utm_content':
+                    parameterObject.content = parameterValue;
+                    break;
+                case 'utm_campaign':
+                    parameterObject.name = parameterValue;
+                    break;
+            }
+        }
+        return parameterObject;
+    };
+
+    return {
+        getUTMParameters: getUTMParameters
+    };
+}());
+</script>
+<script src="http://localhost:4343/html/js/go_amp.js.gz.js"></script>
+<script>
+// Page view.
+var utmParameters = utmUtil.getUTMParameters(),
+loginStatus = AMPLITUDE_EVENT_PROPERTIES.NO;amplitudeTrackEvent(
+    AMPLITUDE_EVENT.PAGE_VIEW,
+    {
+        page_url: window.location.toString(),
+        login_status: loginStatus,
+        utm_source: utmParameters.source,
+        utm_medium: utmParameters.medium,
+        utm_term: utmParameters.term,
+        utm_content: utmParameters.content,
+        utm_name: utmParameters.name,
+        referral: document.referrer
+    }
+);
+</script>
+
+
+
+<script type="text/javascript">
+if (self !== top) {
+            jQuery('body').hide();
+    }
+</script><script type="text/javascript">
+        jQuery.extend(CCStandaloneBannerAdUI, {"actionshopSWF":"http:\/\/localhost:4343\/animation\/414827163ad4eb60\/actionshop.swf","apiserver":"http:\/\/localhost:4343\/","clientThemePath":"/static/ad44370a650793d9/<client_theme>","userId":""});
+</script></head>
+
+
+
+
+<body><div class="page-container">
+
+
+<div class="site-header">
+    <div class="navbar site-nav site-nav--legacy" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="http://localhost:4343/pages/html/list.html" title="Vyond">
+                      <img alt="Vyond" src="http://localhost:4343/pages/img/list_logo_smol.png">
+                  </a>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+<li class="dropdown">
+    <a class="dropdown-toggle" href="http://localhost:4343/pages/html/list.html" data-toggle="dropdown">Help<span class="dropdown-caret"></span></a>
+    <ul class="dropdown-menu dropdown-menu-help">
+        <li>
+            <a href="https://discord.gg/JkEtBkMvhf" target="_blank">Help Center</a>
+        </li>
+        <li>
+            <a href="http://localhost:4343/pages/html/list.html" target="_blank">Go Home</a>
+        </li>
+    </ul>
+</li>
+
+<script>
+    $('.dropdown-menu-help').click(function(e) {
+        e.stopPropagation();
+    });
+</script>
+                    <li><a href="http://localhost:4343/pages/html/create.html">Make a video</a></li>
+                    <li><a href="http://localhost:4343/pages/html/settings.html">Settings</a></li>
+                </ul>
+            </div>
+    </div>
+</div>
+
+
+<script>
+    jQuery('.logout-link').click(function(){
+        amplitudeTrackEvent(AMPLITUDE_EVENT.LOGOUT, null);
+    });
+    </script>
+
+<!-- END OF HEADER -->
+<div id="video-page">
+    <input type="hidden" name="ct" value="O3VIQGjw2iKKBQitS2PbcA5CQTNiCTlegdbmW1_VlbcJ5uEVeH16NGCmT_tF4APksQ9eoreA3aw_IQyNdKTht60CgwVT5kbxx1kFR4XT3WJ5ST214O2qZBI6tOLs+xxs32cj9VozZfxrWErAujJ59vMVDsQZSAkeOTvSk2UttEp7VB6K_IeErRk99FYTjA0JqwqBIMZrh_vsrBefPgjuvkA_DAvJGeglA9bCjXDH0Bci4LigFD">
+    <div class="video-content">
+        <div class="thumbnail-container" id="movie-thumbnail">
+            <div class="thumbnail-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="row">
+                    <div class="video-player">
+                        <div class="video-player-container">
+                            <div class="video-player-viewport using-flash" id="video-player-viewport">
+                                <div class="video-player-wrapper embed-responsive">
+                                    <div class="embed-responsive-item" id="flash-player"></div>
+
+                                    <video class="embed-responsive-item hidden" id="h5-player"></video>
+                                </div>
+                                <div class="video-info hidden-xs" data-video-id="" data-is-owner="yes" data-owner="" data-duration="" style="display: block;">
+                                    <div class="video-info-content">
+                                        <div class="editable">
+                                            <div class="non-edit-fields">
+                                                <a class="edit-video-info" data-action="edit-video-info">Edit video info</a>
+                                                <h1 class="title" id="movie-title">Loading...</h1>
+                                                <p class="description" id="movie-description"></p>
+                                            </div>
+                                        </div>
+                                        <p class="creator">Created by <a title="YOU">YOU!</a></p>
+                                        <p class="status">
+                                            <span class="js-show-revision-history" id="movie-date" style="cursor: pointer;">Last modified: Loading...</span>
+                                        </p>
+                                    </div>
+                                    <form id="movie-setting-form" class="edit-fields">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="title" id="movie-title-input" placeholder="Title" value="" maxlength="50">
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="desc" placeholder="Description" maxlength="255"></textarea>
+                                        </div>
+                                        <div class="form-group text-right">
+                                            <input type="hidden" name="enc_mid" value="07m3MiyKSl-w">
+                                            <button class="btn btn-orange" type="submit">Done</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="video-loading" id="video-loading" style="display: none;">
+                                    <div class="video-loading-message"></div>
+                                </div>
+                                <div id="player-control" class="non-playing" style="display: block;">
+                                    <div class="seek-bar-container">
+                                        <div class="seek-bar">
+                                            <div class="buffered-bar"></div>
+                                            <div class="hover-bar"></div>
+                                            <div class="played-bar"></div>
+                                            <div class="time-tooltip"></div>
+                                        </div>
+                                    </div>
+                                    <div class="button-container">
+                                        <div class="playback-button paused">
+                                            <div class="play-button"></div>
+                                            <div class="pause-button"></div>
+                                            <div class="replay-button"></div>
+                                        </div>
+                                        <div class="progress-time-container">
+                                            <div class="progress-time">00:00 / 00:04</div>
+                                        </div>
+                                        <div class="controls-right">
+                                            <div class="volume-container">
+                                                <div class="volume-control">
+                                                    <div class="volume-icon">
+                                                        <div class="volume-up-icon"></div>
+                                                        <div class="volume-mute-icon"></div>
+                                                    </div>
+                                                    <div class="volume-slider">
+                                                        <div class="slider-track">
+                                                            <div class="track-value-bar"></div>
+                                                        </div>
+                                                        <div class="slider-thumb"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fullscreen-container">
+                                                <div class="fullscreen-button"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-player-meta">
+                                <div class="video-title"></div>
+                                <div class="video-creator"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="context-menu" class="hidden">
+                        <div class="click-disabler"></div>
+                        <ul>
+                            <li data-player-action="play">Play / Pause</li>
+                            <li class="divider"></li>
+                            <li data-player-action="copyUrl">Copy video URL</li>
+                            <li data-player-action="copyEmbedCode">Copy embed code</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar col-sm-5 hidden-xs">
+                    <div class="row panel-container">
+                        <div class="setting-panels">
+                            <div class="main-panel">
+                                <div class="setting-title"><span class="glyph-pro glyph-show-thumbnails_with_lines"></span> Settings</div>
+                                <ul class="setting-items">
+    
+    
+    
+    
+    
+    
+                                    </ul>
+                            </div>
+                            <div class="sub-panel">
+                                <div class="panel-item logo-panel">
+                                    <div class="panel-title">
+                                        <span class="glyph-pro glyph-chevron-left"></span><span class="text">Logo</span>
+                                    </div>
+                                    <div class="list-container">
+                                        <div class="panel-info">
+                                    </div>
+                                </div>
+                                <div class="panel-item history-panel">
+                                    <div class="panel-title">
+                                        <span class="glyph-pro glyph-chevron-left"></span><span class="text">Revision history</span>
+                                    </div>
+                                    <div class="list-container"></div>
+                                </div>
+                                <div class="panel-item notes-panel">
+                                    <div class="panel-title-static">
+                                        <span class="glyph-pro glyph-blog"></span><span class="text">Notes</span>
+                                    </div>
+                                    <div class="list-container"></div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="video-top">
+    <div class="intro-banner">
+        <div>Vyond Remastered is not endorsed by Vyond and is a seperate, independent project.</div>
+        <div><a class="btn btn-sm btn-dark" href="http://localhost:4343/pages/html/independent.html">Learn more</a></div>
+    </div>
+
+    
+
+    <div class="settings headline">
+        <div class="container">
+            <div class="settings-row">
+            <h1 class="video-title visible-xs">Caillou Says "No Star Wars"/Grounded</h1>
+            <p>Created by <a title="YOU">YOU!</a></p>
+
+        </div>
+        </div>
+    </div>
+
+
+    <div class="settings social grey">
+        <div class="container">
+            <div class="settings-row">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input id="copyable-url" class="form-control gtm-ga-event" type="url" readonly="true" value="'/movie?movieId=' + encodeURIComponent(playerMovieId)?utm_source=linkshare&amp;utm_medium=linkshare&amp;utm_campaign=usercontent" onclick="this.select()" data-gtmv-action="Share - Click text field" data-gtmv-category="" data-gtmv-label="25514059 - Guest">
+                        </div>
+                        <div class="col-sm-6 socials-icons">
+                            <ul class="socials-sharing">
+                                <li>
+                                    <a class="glyph-pro glyph-embed-close" data-remote="/ajax/getEmbedOverlay/0qryjRSJLmbg" data-action="video-embed" title="Embed code">
+                                        <span class="sr-only sr-only-focusable">Embed code</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <div class="shortcut-instruction hidden-xs hidden-sm">
+        <div class="container">
+            <ul>
+                <li>
+                    <div class="key play"></div>
+                    <div class="name">Play / Pause</div>
+                </li>
+                <li>
+                    <div class="key back-forward"></div>
+                    <div class="name">Back/forward 5 secs</div>
+                </li>
+                <li>
+                    <div class="key full-screen"></div>
+                    <div class="name">Full Screen</div>
+                </li>
+                <li>
+                    <div class="key exit-full-screen"></div>
+                    <div class="name">Exit Full Screen</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<input id="embed_code_field" type="hidden" value="<iframe scrolling=&quot;no&quot; allowTransparency=&quot;true&quot; allowfullscreen frameborder=&quot;0&quot; width=&quot;640&quot; height=&quot;360&quot; src=&quot;'/movie?movieId=' + encodeURIComponent(playerMovieId)&quot; ></iframe>
+">
+<script>
+    var flashPlayerUrl = 'http://localhost:4343/animation/414827163ad4eb60/player.swf',
+        flashPlayerVars = {"movieOwner":"African+Vulture%E2%84%A2","movieOwnerId":"0uWOI2JiCdHU","movieId":playerMovieId,"movieLid":"13","movieTitle":"","movieDesc":"","userId":"","username":"","uemail":"","ut":"-1","numContact":"","apiserver":"http:\/\/localhost:4343\/","duration":"0","playcount":1,"thumbnailURL":thumbnailUrl,"copyable":"0","isPublished":"1","ctc":"go","tlang":"en_US","is_private_shared":"0","autostart":"0","appCode":"go","is_slideshow":"0","originalId":"0zEt_fo4L-5k","is_emessage":"0","storePath":"http:\/\/localhost:4343\/store\/3a981f5cb2739137\/<store>","clientThemePath":"http:\/\/localhost:4343\/static\/ad44370a650793d9\/<client_theme>","animationPath":"http:\/\/localhost:4343\/animation\/414827163ad4eb60\/","isEmbed":"0","refuser":null,"utm_source":null,"uid":null,"isTemplate":"0","showButtons":"1","chain_mids":"","averageRating":5,"ratingCount":"1","ad":1,"endStyle":0,"pwm":0,"s3base":"http:\/\/localhost:4343\/","initcb":"flashPlayerLoaded","showshare":false},
+        h5PlayerElem = null,
+        sceneDetails = {};
+
+    // The global video aspect ratio is controlled by /api/settings/list.
+    // settings.html uses these resolution values:
+    //   0 = 14:9 (no aspect-ratio flag)
+    //   1 = 16:9 (isWide="1")
+    //   2 = 21:9 (isUltra="2")
+    //   3 = 4:3  (isRetro="3")
+    function applyPlayerResolution(value) {
+        value = String(value == null ? '0' : value);
+        playerResolution = value;
+
+        switch (value) {
+            case '3':
+                playerAspect = { width: 4, height: 3, label: '4:3' };
+                delete flashPlayerVars.isWide;
+                delete flashPlayerVars.isUltra;
+                flashPlayerVars.isRetro = '3';
+                break;
+            case '1':
+                playerAspect = { width: 16, height: 9, label: '16:9' };
+                delete flashPlayerVars.isRetro;
+                delete flashPlayerVars.isUltra;
+                flashPlayerVars.isWide = '1';
+                break;
+            case '2':
+                playerAspect = { width: 21, height: 9, label: '21:9' };
+                delete flashPlayerVars.isRetro;
+                delete flashPlayerVars.isWide;
+                flashPlayerVars.isUltra = '2';
+                break;
+            case '0':
+            default:
+                playerResolution = '0';
+                playerAspect = { width: 14, height: 9, label: '14:9' };
+                delete flashPlayerVars.isRetro;
+                delete flashPlayerVars.isWide;
+                delete flashPlayerVars.isUltra;
+                break;
+        }
+
+        var wrapper = document.querySelector('.video-player-wrapper');
+        if (wrapper) {
+            // Remove Bootstrap's fixed 16:9 pseudo-element behaviour and use
+            // the actual configured aspect ratio instead.
+            wrapper.classList.remove('embed-responsive-16by9');
+            wrapper.style.paddingTop = (playerAspect.height / playerAspect.width * 100) + '%';
+        }
+
+        var videoHeight = document.querySelector('meta[name="video_height"]');
+        var videoWidth = document.querySelector('meta[name="video_width"]');
+        if (videoHeight) videoHeight.setAttribute('content', String(Math.round(720 * playerAspect.height / playerAspect.width)));
+        if (videoWidth) videoWidth.setAttribute('content', '1280');
+
+        var schemaHeight = document.querySelector('meta[itemprop="height"]');
+        var schemaWidth = document.querySelector('meta[itemprop="width"]');
+        if (schemaHeight) schemaHeight.setAttribute('content', String(Math.round(720 * playerAspect.height / playerAspect.width)));
+        if (schemaWidth) schemaWidth.setAttribute('content', '1280');
+    }
+
+    function loadPlayerResolution(done) {
+        var req = new XMLHttpRequest();
+        req.open('GET', '/api/settings/list', true);
+        req.onreadystatechange = function () {
+            if (req.readyState !== 4) return;
+
+            var value = '0';
+            if (req.status >= 200 && req.status < 300) {
+                try {
+                    var settings = JSON.parse(req.responseText);
+                    value = settings && settings.resolution != null ? settings.resolution : '0';
+                } catch (e) {
+                    console.warn('player.eta: unable to parse /api/settings/list:', e);
+                }
+            } else {
+                console.warn('player.eta: /api/settings/list returned HTTP ' + req.status + '; using 14:9.');
+            }
+
+            applyPlayerResolution(value);
+            if (typeof done === 'function') done();
+        };
+        req.send();
+    }
+
+    function createFlashPlayer() {
+        var container = document.getElementById('flash-player');
+        if (!container || !playerMovieId) return;
+
+        applyPlayerResolution(playerResolution);
+
+        var object = document.createElement('object');
+        object.data = flashPlayerUrl;
+        object.type = 'application/x-shockwave-flash';
+        object.id = 'Player';
+        object.width = '100%';
+        object.height = '100%';
+
+        function addParam(name, value) {
+            var param = document.createElement('param');
+            param.name = name;
+            param.value = value;
+            object.appendChild(param);
+        }
+
+        addParam('bgcolor', '#000000');
+        addParam('scale', 'exactfit');
+        addParam('allowScriptAccess', 'always');
+        addParam('allowFullScreen', 'true');
+        addParam('wmode', 'opaque');
+
+        var vars = [];
+        Object.keys(flashPlayerVars).forEach(function(key) {
+            var value = flashPlayerVars[key];
+            if (value === null || value === undefined) return;
+            vars.push(encodeURIComponent(key) + '=' + encodeURIComponent(String(value)));
+        });
+        addParam('flashvars', vars.join('&'));
+
+        container.innerHTML = '';
+        container.appendChild(object);
+
+        var viewport = document.getElementById('video-player-viewport');
+        if (viewport) {
+            viewport.style.backgroundImage = "url('" + thumbnailUrl + "')";
+        }
+
+        var thumbnail = document.getElementById('movie-thumbnail');
+        if (thumbnail) {
+            thumbnail.style.backgroundImage = "url('" + thumbnailUrl + "')";
+        }
+    }
+
+    // Load the same movie list used by list.html, after the page DOM exists.
+    // Use XMLHttpRequest here because list.html uses the same mechanism.
+    function loadMovieMetadata() {
+        if (!playerMovieId) {
+            console.error('player.eta: no movieId supplied in the URL.');
+            return;
+        }
+
+        var req = new XMLHttpRequest();
+        req.open('GET', '/movieList', true);
+        req.onreadystatechange = function () {
+            if (req.readyState !== 4) return;
+
+            if (req.status < 200 || req.status >= 300) {
+                console.error('player.eta: /movieList returned HTTP ' + req.status);
+                return;
+            }
+
+            try {
+                var list = JSON.parse(req.responseText);
+                var tbl = Array.isArray(list) ? list.find(function (item) {
+                    return item && String(item.id) === String(playerMovieId);
+                }) : null;
+
+                if (!tbl) {
+                    console.error('player.eta: playerMovieId "' + playerMovieId + '" was not found in /movieList.');
+                    console.log('player.eta: /movieList response:', list);
+                    return;
+                }
+
+                movieInfo = tbl;
+
+                var title = tbl.title || playerMovieId || 'Untitled Video';
+                var date = tbl.date ? String(tbl.date).substr(0, 10) + ' ' + String(tbl.date).substr(11) : 'Unknown';
+
+                document.title = title + ' - Vyond Remastered';
+
+                var titleEl = document.getElementById('movie-title');
+                if (titleEl) titleEl.textContent = title;
+
+                var titleInput = document.getElementById('movie-title-input');
+                if (titleInput) titleInput.value = title;
+
+                var dateEl = document.getElementById('movie-date');
+                if (dateEl) dateEl.textContent = 'Last modified: ' + date;
+
+                var descEl = document.getElementById('movie-description');
+                if (descEl) descEl.textContent = tbl.description || '';
+
+                var info = document.querySelector('.video-info');
+                if (info) {
+                    info.setAttribute('data-video-id', playerMovieId);
+                    info.setAttribute('data-owner', tbl.owner || '');
+                    info.setAttribute('data-duration', tbl.duration || '');
+                }
+
+                if (typeof flashPlayerVars !== 'undefined') {
+                    flashPlayerVars.movieTitle = title;
+                    flashPlayerVars.movieDesc = tbl.description || '';
+                    flashPlayerVars.duration = tbl.duration || '0';
+                }
+
+                var metaTitle = document.getElementById('meta-title');
+                if (metaTitle) metaTitle.setAttribute('content', title);
+
+                var metaDescription = document.getElementById('meta-description');
+                if (metaDescription) metaDescription.setAttribute('content', 'Watch the video: ' + title + ' on Vyond Remastered.');
+
+                var ogTitle = document.querySelector('meta[property="og:title"]');
+                if (ogTitle) ogTitle.setAttribute('content', title);
+
+                var ogDescription = document.querySelector('meta[property="og:description"]');
+                if (ogDescription) ogDescription.setAttribute('content', tbl.description || '');
+
+                var ogImage = document.querySelector('meta[property="og:image"]');
+                if (ogImage) ogImage.setAttribute('content', window.location.origin + thumbnailUrl);
+
+                var twitterTitle = document.querySelector('meta[name="twitter:title"]');
+                if (twitterTitle) twitterTitle.setAttribute('content', title);
+
+                var twitterDescription = document.querySelector('meta[name="twitter:description"]');
+                if (twitterDescription) twitterDescription.setAttribute('content', 'Watch the video: ' + title + ' on Vyond Remastered.');
+
+                var twitterImage = document.querySelector('meta[name="twitter:image"]');
+                if (twitterImage) twitterImage.setAttribute('content', window.location.origin + thumbnailUrl);
+
+                // If the Flash object has not been created yet, create it now with the real title/duration.
+                if (!document.getElementById('Player')) createFlashPlayer();
+            } catch (e) {
+                console.error('player.eta: unable to parse /movieList:', e, req.responseText);
+            }
+        };
+        req.send();
+    }
+
+    // Create the Flash player independently of metadata, then update metadata when /movieList returns.
+    function initializeLocalMoviePage() {
+        // Load the configured aspect ratio first so the FlashVars and viewport
+        // are correct before the SWF is instantiated.
+        loadPlayerResolution(function () {
+            if (playerMovieId && !document.getElementById('Player')) createFlashPlayer();
+        });
+        loadMovieMetadata();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeLocalMoviePage);
+    } else {
+        initializeLocalMoviePage();
+    }
+
+    // The player is created on DOMContentLoaded; movie metadata is applied asynchronously.
+</script>
+<script>
+    amplitudeTrackEvent(
+        AMPLITUDE_EVENT.WATCH_VIDEO,
+        {
+            video_id: playerMovieId,
+            owner: '0uWOI2JiCdHU'
+        }
+    );
+</script>
+<script src="http://localhost:4343/html/js/media-controller.js.gz.js"></script>
+<script src="http://localhost:4343/html/js/video_page.js.gz.js"></script>
+<script src="http://localhost:4343/html/js/video_page_worknote.js.gz.js"></script>
+<script src="http://localhost:4343/html/js/video_page_player.js.gz.js"></script>
+<script src="http://localhost:4343/html/js/video_page_player_control.js.gz.js"></script>
+<script>
+    var videoPage = new VideoPage(playerMovieId),
+        previewPlayer,
+        flashVar = {
+            duration: (movieInfo && movieInfo.duration) || 0
+        };
+    var videoCopyableUrl = window.location.origin + '/movie?movieId=' + encodeURIComponent(playerMovieId) + '?utm_source=linkshare&utm_medium=linkshare&utm_campaign=usercontent';
+
+    function setupPreviewPlayer() {
+        var previewPlayerRetryCount = 5;
+        var video = document.getElementById('h5-player');
+
+        video.innerHTML = '';
+
+        previewPlayer = new PreviewPlayer("wss://preview.vyond.com", playerMovieId, true);
+        previewPlayer.setVideoElement(video);
+        previewPlayer.setUserAuthenticationToken('1:03313158c56f6959ba568f17277d68bd2d8baac251c52c0b78d56e8895433156:gdH/BMXuRHHyuwNL8is/ZU6NgcJ0zlxH9A0JrHOSk3s=');
+        previewPlayer.setFromPptConversion(false);
+    }
+
+    $('[data-action="user-opt-out"]').on('click', function(e) {
+        e.preventDefault();
+        if (previewPlayer) {
+            previewPlayer.userOptOut();
+        } else {
+            switchToFlashPlayer();
+            window.localStorage.setItem(PreviewPlayerConstants.USE_H5_PREVIEW_PREFERENCE_KEY, PreviewPlayerConstants.USER_OPT_OUT);
+        }
+        amplitudeSetUserProperty(
+            AMPLITUDE_USER_PROPERTY_KEYS.LATEST_PLAYER_METHOD,
+            AMPLITUDE_EVENT_PROPERTIES.PREVIEW_METHOD_LEGACY
+        );
+        amplitudeTrackEvent(
+            AMPLITUDE_EVENT.VIDEO_PLAYER_SWITCH,
+            {
+                video_id: playerMovieId,
+                action: AMPLITUDE_EVENT_PROPERTIES.PREVIEW_ACTION_HTML5_TO_LEGACY
+            }
+        );
+    });
+
+    $('[data-action="user-opt-in"]').on('click', function(e) {
+        e.preventDefault();
+        if (previewPlayer) {
+            previewPlayer.userOptIn();
+        } else {
+            switchToH5Player();
+            window.localStorage.setItem(PreviewPlayerConstants.USE_H5_PREVIEW_PREFERENCE_KEY, PreviewPlayerConstants.USER_OPT_IN);
+        }
+        amplitudeSetUserProperty(
+            AMPLITUDE_USER_PROPERTY_KEYS.LATEST_PLAYER_METHOD,
+            AMPLITUDE_EVENT_PROPERTIES.PREVIEW_METHOD_HTML5
+        );
+        amplitudeTrackEvent(
+            AMPLITUDE_EVENT.VIDEO_PLAYER_SWITCH,
+            {
+                video_id: playerMovieId,
+                action: AMPLITUDE_EVENT_PROPERTIES.PREVIEW_ACTION_LEGACY_TO_HTML5
+            }
+        );
+    });
+    if (!window.MediaSource) {
+        if ($.flash.available) {
+            // MSE not available
+            $('.player-container > .notification').addClass('hidden')
+                .filter('.browser-no-mse').removeClass('hidden');
+        } else {
+            // MSE and flash plugin not available
+            $('.player-container > .notification').addClass('hidden')
+                .filter('.browser-no-mse-no-flash').removeClass('hidden');
+            // refresh the page after 30 seconds
+            setTimeout(function() {
+                window.location.reload()
+            }, 30000);
+        }
+        // trigger h5 video compilation
+    }
+    setupPreviewPlayer();
+    loadH5Preview();
+
+    $(document).on('click', 'a.for-unavailable', function() {
+        amplitudeTrackEvent(AMPLITUDE_EVENT.VIEW_PLANS_FROM_VIDEO_PAGE);
+    });
+</script>
+
+
+
+<script>
+amplitudeTrackEvent(AMPLITUDE_EVENT.VISIT_VIDEO_PAGE, {"movie":playerMovieId,"owner":0,"editor":0,"duration":"16","creator_plan":"goresell","referral":"*\/https:\/\/goanimate.com\/videos\/0qryjRSJLmbg","login_status":"no","video_status":"private","transfer_rights_to":"","manage_end_date":""});
+</script>
+
+
+
+
+<!-- FOOTER -->
+
+<footer class="site-footer">
+    
+</footer>
+
+
+<div id="studio_container" style="display: none;">
+    <div id="studio_holder"><!-- Full Screen Studio -->
+        <div style="top: 50%; position: relative;">
+            You can't use Vyond because Flash might be disabled. <a href="http://web.archive.org/web/20180516214856/https://get.adobe.com/flashplayer/">Enable Flash</a>.
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- END OF PAGE STRUCTURE -->
+
+
+
+<div id="offer_container">
+</div>
+<script type="text/javascript">
+    </script>
+
+<script type="text/javascript">
+    function logSendShareToGA() {
+        dataLayer.push({
+            'event': 'ga-pageview-t1',
+            'path': '/pageTracker/goals/reg/contactform'
+        });
+    }
+
+</script>
+</body></html>

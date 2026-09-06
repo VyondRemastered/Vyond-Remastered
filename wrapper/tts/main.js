@@ -105,6 +105,9 @@ module.exports = function tts(voiceName, text, headers) {
 							method: "POST",
 							headers: {
 								"Content-Type": "application/x-www-form-urlencoded",
+								"User-Agent": "Mozilla/5.0",
+								"Referer": "https://readloud.net",
+								"Origin": "https://readloud.net"
 							},
 						},
 						(res) => {

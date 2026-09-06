@@ -8,6 +8,11 @@ const folder = `${__dirname}/../../${process.env.ASSET_FOLDER}`;
 const fUtil = require("../fileUtil");
 const https = require("https");
 
+// Guarentee purely numeric fontIds to stop further issues.
+function generateNumericId() {
+	return `${Date.now()}${Math.floor(Math.random() * 900) + 100}`;
+}
+
 module.exports = {
 	delete(aId, type) {
 		let type2;
@@ -173,7 +178,7 @@ module.exports = {
 	},
 	save(buf, meta) {
 	// save asset info
-	const aId = fUtil.generateId();
+	const aId = meta.type === "font" ? generateNumericId() : fUtil.generateId();
 	const db = DB.get();
 
 	const asset = { // base info, can be modified by the user later

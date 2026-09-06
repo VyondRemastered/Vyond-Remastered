@@ -38,42 +38,42 @@
 				<div class="dropdown_button">CREATE A CHARACTER</div>
 				<nav class="dropdown_menu">
 					<h2>Comedy World</h2>
-					<a href="/cc?themeId=family&bs=adam">Guy (Adam)</a>
-					<a href="/cc?themeId=family&bs=eve">Girl (Eve)</a>
-					<a href="/cc?themeId=family&bs=bob">Fat (Bob)</a>
-					<a href="/cc?themeId=family&bs=rocky">Buff (Rocky)</a>
+					<a href="/character/creator?themeId=family&bs=adam">Guy (Adam)</a>
+					<a href="/character/creator?themeId=family&bs=eve">Girl (Eve)</a>
+					<a href="/character/creator?themeId=family&bs=bob">Fat (Bob)</a>
+					<a href="/character/creator?themeId=family&bs=rocky">Buff (Rocky)</a>
 					<hr />
 					<h2>Business Friendly</h2>
-					<a href="/cc?themeId=business&bs=default&ft=_sticky_filter_guy">Guy (Adam)</a>
-					<a href="/cc?themeId=business&bs=default&ft=_sticky_filter_girl">Girl (Eve)</a>
-					<a href="/cc?themeId=business&bs=heavy&ft=_sticky_filter_heavyguy">Fat (Bob)</a>
+					<a href="/character/creator?themeId=business&bs=default&ft=_sticky_filter_guy">Guy (Adam)</a>
+					<a href="/character/creator?themeId=business&bs=default&ft=_sticky_filter_girl">Girl (Eve)</a>
+					<a href="/character/creator?themeId=business&bs=heavy&ft=_sticky_filter_heavyguy">Fat (Bob)</a>
 					<hr />
 					<h2>Anime</h2>
-					<a href="/cc?themeId=anime&bs=guy">Guy</a>
-					<a href="/cc?themeId=anime&bs=girl">Girl</a>
-					<a href="/cc?themeId=ninjaanime&bs=guy">Guy (Ninja)</a>
-					<a href="/cc?themeId=ninjaanime&bs=girl">Girl (Ninja)</a>
+					<a href="/character/creator?themeId=anime&bs=guy">Guy</a>
+					<a href="/character/creator?themeId=anime&bs=girl">Girl</a>
+					<a href="/character/creator?themeId=ninjaanime&bs=guy">Guy (Ninja)</a>
+					<a href="/character/creator?themeId=ninjaanime&bs=girl">Girl (Ninja)</a>
 					<hr />
 					<h2>Peepz</h2>
-					<a href="/cc?themeId=cc2&bs=default">Lil Peepz</a>
-					<a href="/cc?themeId=chibi&bs=default">Chibi Peepz</a>
-					<a href="/cc?themeId=ninja&bs=default">Chibi Ninjas</a>
+					<a href="/character/creator?themeId=cc2&bs=default">Lil Peepz</a>
+					<a href="/character/creator?themeId=chibi&bs=default">Chibi Peepz</a>
+					<a href="/character/creator?themeId=ninja&bs=default">Chibi Ninjas</a>
 				</nav>
 			</div>
 			<div class="dropdown_contain button_small">
 				<div class="dropdown_button">BROWSE CHARACTERS</div>
 				<nav class="dropdown_menu">
 					<h2>Comedy World</h2>
-					<a href="/cc_browser?themeId=family">Comedy World</a>
+					<a href="/character/browser?themeId=family">Comedy World</a>
 					<hr />
 					<h2>Anime</h2>
-					<a href="/cc_browser?themeId=anime">Anime</a>
-					<a href="/cc_browser?themeId=ninjaanime">Ninja Anime</a>
+					<a href="/character/browser?themeId=anime">Anime</a>
+					<a href="/character/browser?themeId=ninjaanime">Ninja Anime</a>
 					<hr />
 					<h2>Peepz</h2>
-					<a href="/cc_browser?themeId=cc2">Lil' Peepz</a>
-					<a href="/cc_browser?themeId=chibi">Chibi Peepz</a>
-					<a href="/cc_browser?themeId=ninja">Chibi Ninjas</a>
+					<a href="/character/browser?themeId=cc2">Lil' Peepz</a>
+					<a href="/character/browser?themeId=chibi">Chibi Peepz</a>
+					<a href="/character/browser?themeId=ninja">Chibi Ninjas</a>
 				</nav>
 			</div>
 			<a href="create.html" class="button_big">MAKE A VIDEO</a>
@@ -242,13 +242,13 @@
 				const json = JSON.parse(d);
 				let text;
 				switch (json.lvmType) {
-					case "go_full": {
+					case "studio": {
 						text = "Vyond Remastered LVM (Modified Version)"
-						document.getElementById('lvmType').href = "javascript:changeConfigSetting('lvmType', 'go_full2')";
+						document.getElementById('lvmType').href = "javascript:changeConfigSetting('lvmType', 'studio2')";
 						break;
-					} case "go_full2": {
+					} case "studio2": {
 						text = "Original GoAnimate LVM (Unmodified Version)";
-						document.getElementById('lvmType').href = "javascript:changeConfigSetting('lvmType', 'go_full')";
+						document.getElementById('lvmType').href = "javascript:changeConfigSetting('lvmType', 'studio')";
 						break;
 					}
 				}

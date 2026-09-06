@@ -13,6 +13,10 @@ const database = require("../data/database"), DB = new database();
 
 function name2Font(font) {
 	switch (font) {
+		case "Noto Sans Chinese":
+			return "FontFileNotoSansChinese";
+		case "Determination":
+			return "FontFileDetermination";
 		case "Blambot Casual":
 			return "FontFileCasual";
 		case "BadaBoom BB":

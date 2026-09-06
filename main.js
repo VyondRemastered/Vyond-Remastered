@@ -11,7 +11,7 @@ if (!fs.existsSync("./config.json")) {
         SWF_URL: "/animation/414827163ad4eb60",
         STORE_URL: "/store/3a981f5cb2739137",
         CLIENT_URL: "/static/ad44370a650793d9",
-        lvmType: "go_full"
+        lvmType: "studio"
     };
     fs.writeFileSync("./config.json", JSON.stringify(config, null, "\t"));
 }
@@ -59,8 +59,8 @@ if (!fs.existsSync("./wrapper/static/info.json")) {
 				},
 				content: '<cross-domain-policy><allow-access-from domain="*"/></cross-domain-policy>'
 			},
-			"cc.swf": {},
-			"go_full.swf": {},
+			"creator.swf": {},
+			"studio.swf": {},
 			"favicon.ico": {},
 			"char_default.png": {
 				content: ""
@@ -130,7 +130,8 @@ if (!fs.existsSync("./wrapper/static/info.json")) {
 					"Content-Type": "application/json"
 				},
 				content: {
-					status: "ok"
+					status: "ok",
+					data: []
 				}
 			},
 			"/api_v2/team/members": {
@@ -177,7 +178,7 @@ if (!fs.existsSync("./wrapper/static/info.json")) {
 			}
 		},
 		pages: {
-			"/cc": "<script>function characterSaved(){window.location='/'}</script>"
+			"/character/creator": "<script>function characterSaved(){window.location='/'}</script>"
 		}
 	};
 	fs.writeFileSync("./wrapper/static/info.json", JSON.stringify(info, null, "\t"));
