@@ -2,7 +2,6 @@ const https = require("https");
 const http = require("http");
 const { Readable } = require("stream");
 const qs = require("querystring");
-const fs = require("fs");
 const path = require("path");
 const md5 = require("js-md5");
 const ffmpeg = require("fluent-ffmpeg");
@@ -98,87 +97,47 @@ module.exports = function tts(voiceName, text, headers) {
 
 				/* -------------------- READLOUD -------------------- */
 				case "readloud": {
-					const req = https.request(
-						{
-							hostname: "readloud.net",
-							path: voice.arg,
-							method: "POST",
-							headers: {
-								"Content-Type": "application/x-www-form-urlencoded",
-								"User-Agent": "Mozilla/5.0",
-								"Referer": "https://readloud.net",
-								"Origin": "https://readloud.net"
-							},
-						},
-						(res) => {
-							try {
-								if (res.statusCode !== 200) {
-									return reject(
-										"ReadLoud error occurred when generating audio"
-									);
-								}
-
-								const buffers = [];
-
-								res.on("data", (b) => buffers.push(b));
-
-								res.on("end", () => {
-									try {
-										const html = Buffer.concat(buffers);
-
-										const beg = html.indexOf("/tmp/");
-										const end = html.indexOf("mp3", beg) + 3;
-
-										const sub = html.subarray(beg, end).toString();
-
-										const audioReq = https.get(
-											`https://readloud.net${sub}`,
-											(audioRes) => {
-												if (audioRes.statusCode !== 200) {
-													return reject(
-														"ReadLoud error occurred when retrieving audio"
-													);
-												}
-
-												const audioBufs = [];
-												audioRes.on("data", (b) => audioBufs.push(b));
-												audioRes.on("end", () => resolve(Buffer.concat(audioBufs)));
-												audioRes.on("error", reject);
-											}
-										);
-
-										audioReq.on("error", reject);
-									} catch (e) {
-										reject(e);
-									}
-								});
-							} catch (e) {
-								reject(e);
+				  const body = new URLSearchParams({ but1: text, butS: 0, butP: 0, butPauses: 0, butt0: "Submit" }).toString();
+					const headers = { "User-Agent": "Mozilla/5.0", Referer: "https://readloud.net", Origin: "https://readloud.net" };
+					const req = https.request({
+						hostname: "readloud.net", 
+						path: voice.arg, 
+						method: "POST",
+						headers: { "Content-Type": "application/x-www-form-urlencoded", ...headers }
+					}, (r) => {
+						if (r.statusCode !== 200) return reject(`HTTP ${r.statusCode}`);
+						let html = "";
+						r.on("data", (b) => html += b);
+						r.on("end", () => {
+						  const beg = html.indexOf("/tmp/");
+							if (beg === -1) return reject("MP3 link not found");
+							const sub = html.substring(beg, html.indexOf("mp3", beg) + 3);
+							https.get({ hostname: "readloud.net", path: sub, headers }, (r2) => {
+							if (r2.statusCode !== 200) {
+								return reject(`MP3 HTTP ${r2.statusCode}`);
 							}
-						}
-					);
 
-					req.on("error", reject);
+							const buffers = [];
 
-					const body = new URLSearchParams({
-						but1: text,
-						butS: "0",
-						butP: "0",
-						butPauses: "0",
-						butt0: "Submit",
-					}).toString();
+							r2.on("data", chunk => buffers.push(chunk));
 
-										req.end(body);
+							r2.on("end", () => {
+								resolve(Buffer.concat(buffers));
+							});
 
+							r2.on("error", reject);
+						}).on("error", reject);
+						});
+					  }).on("error", reject);
+					req.end(body);
 					break;
 				}
-
-				default:
-					reject(`Unsupported voice source: ${voice.source}`);
-					break;
+				default: {
+					return reject("Not implemented");
+				}
 			}
 		} catch (e) {
-			reject(e);
+			return reject(e);
 		}
 	});
 };
