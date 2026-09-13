@@ -1,6 +1,7 @@
 {
 	"bg": {
 		"gif": true,
+		"swf": true,
 		"jfif": true,
 		"jpg": true,
 		"png": true
@@ -11,6 +12,7 @@
     },
 	"prop": {
 		"webp": true,
+		"swf": true,
 		"avif": true,
 		"gif": true,
 		"jfif": true,
@@ -31,7 +33,6 @@
 	},
 	"video": {
 		"webm": true,
-		"swf": true,
 		"flv": true,
 		"mp4": true
 	}
