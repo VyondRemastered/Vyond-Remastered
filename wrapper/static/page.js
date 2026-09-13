@@ -232,7 +232,7 @@ module.exports = function (req, res, url) {
 			break;
 		}
 
-		case '/player': {
+		case '/movie': {
 			discord("Watching a video");
 			title = 'Video Player';
 			filename = "player";
