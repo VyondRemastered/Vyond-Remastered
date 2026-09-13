@@ -138,6 +138,5 @@ dist
 *.sfk
 *.sfap0
 utilities/config.bat
-config.json
 package-lock.json
 wrapper/static/info.json
