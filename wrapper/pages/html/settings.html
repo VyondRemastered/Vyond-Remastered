@@ -100,7 +100,9 @@
 					<p>Dry run mode: <a id="dryrun" href="javascript:moreInfo('dryrun')" title="More Info"></a></p>
 					<p>Browser type: <a id="btype" href="javascript:moreInfo('btype')" title="More Info"></a></p>
 				</div>
-				<p>LVM Type: <a id="lvmType" title="Update Setting" style="color: white;"></a></p>
+				<p>LVM Theme: <a id="lvmType" title="Update Setting" style="color: white;"></a></p>
+				<p>CC Theme: <a id="ccType" title="Update Setting" style="color: white;"></a></p>
+				<p>CC Browser Theme: <a id="browserType" title="Update Setting" style="color: white;"></a></p>
 				<p id="stype_p">Studio Type: <a id="stype" title="Update Setting"></a></p>
 				<p id="tutorial-setting" style="display:none">Tutorial: <a id="tutorial" title="Update Setting"></a></p>
 				<p>
@@ -177,22 +179,15 @@
 					$("#waveform").addClass("red");
                 }
 				if (d.resolution == "0") {
-					document.getElementById('resolution').innerHTML = '14:9';
-					document.getElementById('resolution').href = "javascript:changeSetting('resolution', '1')";
+                    document.getElementById('resolution').innerHTML = '16:9';
+                    document.getElementById('resolution').href = "javascript:changeSetting('resolution', '1')";
 				} else if (d.resolution == "1") {
-					document.getElementById('resolution').innerHTML = '16:9';
-					document.getElementById('resolution').href = "javascript:changeSetting('resolution', '2')";
+                    document.getElementById('resolution').innerHTML = '14:9';
+                    document.getElementById('resolution').href = "javascript:changeSetting('resolution', '2')";
 				} else if (d.resolution == "2") {
-					document.getElementById('resolution').innerHTML = '21:9';
-					document.getElementById('resolution').href = "javascript:changeSetting('resolution', '3')";
-				} else if (d.resolution == "3") {
-					document.getElementById('resolution').innerHTML = '4:3';
-					document.getElementById('resolution').href = "javascript:changeSetting('resolution', '0')";
-				} else {
-					// Fallback for invalid values
-					document.getElementById('resolution').innerHTML = '14:9';
-					document.getElementById('resolution').href = "javascript:changeSetting('resolution', '1')";
-				}
+                    document.getElementById('resolution').innerHTML = '4:3';
+                    document.getElementById('resolution').href = "javascript:changeSetting('resolution', '0')";
+                }
 				if (d.rpc == "true") {
                     document.getElementById('rpc').innerHTML = 'ON';
                     document.getElementById('rpc').href = "javascript:changeSetting('rpc', 'false')";
@@ -238,23 +233,123 @@
 				$("#btype").html(d.BROWSER_TYPE).css("color", "white");
 				if (d.NODE_ENV == "dev") $("#devSettings").show();
 			});
-			$.post("/api/config/get").done(d => {
-				const json = JSON.parse(d);
-				let text;
+			$.post("/api/config/get")
+			.done(d => {
+				const json = typeof d === "string" ? JSON.parse(d) : d;
+
+				console.log("Config returned:", json);
+
+				let text = "";
+				let nextValue = "";
+
 				switch (json.lvmType) {
-					case "studio": {
-						text = "Vyond Remastered LVM (Modified Version)"
-						document.getElementById('lvmType').href = "javascript:changeConfigSetting('lvmType', 'studio2')";
+					case "studio":
+						text = "(Light Mode)";
+						nextValue = "studio_dark";
 						break;
-					} case "studio2": {
-						text = "Original GoAnimate LVM (Unmodified Version)";
-						document.getElementById('lvmType').href = "javascript:changeConfigSetting('lvmType', 'studio')";
+
+					case "studio_dark":
+						text = "(Dark Mode)";
+						nextValue = "studio";
 						break;
-					}
+
+					default:
+						console.warn("Unknown lvmType:", json.lvmType);
+						text = `(${json.lvmType || "Unknown"})`;
+						break;
 				}
-				$("#lvmType").html(text);
+
+				$("#lvmType")
+					.html(text)
+					.css("color", "white");
+
+				if (nextValue) {
+					document.getElementById("lvmType").href =
+						`javascript:changeConfigSetting('lvmType', '${nextValue}')`;
+				}
+			})
+			.fail((xhr, status, error) => {
+				console.error("Failed to load config:", status, error);
+
 			});
-			loadSettings2();
+			$.post("/api/config/get")
+			.done(d => {
+				const json = typeof d === "string" ? JSON.parse(d) : d;
+
+				console.log("Config returned:", json);
+
+				let text = "";
+				let nextValue = "";
+
+			switch (json.ccType) {
+					case "creator":
+						text = "(Light Mode)";
+						nextValue = "creator_dark";
+						break;
+
+					case "creator_dark":
+						text = "(Dark Mode)";
+						nextValue = "creator";
+						break;
+
+					default:
+						console.warn("Unknown ccType:", json.ccType);
+						text = `(${json.ccType || "Unknown"})`;
+						break;
+				}
+
+				$("#ccType")
+					.html(text)
+					.css("color", "white");
+
+				if (nextValue) {
+					document.getElementById("ccType").href =
+						`javascript:changeConfigSetting('ccType', '${nextValue}')`;
+				}
+			})
+			.fail((xhr, status, error) => {
+				console.error("Failed to load config:", status, error);
+			});
+
+			$.post("/api/config/get")
+			.done(d => {
+				const json = typeof d === "string" ? JSON.parse(d) : d;
+
+				console.log("Config returned:", json);
+
+				let text = "";
+				let nextValue = "";
+
+			switch (json.browserType) {
+					case "browser":
+						text = "(Light Mode)";
+						nextValue = "browser_dark";
+						break;
+
+					case "browser_dark":
+						text = "(Dark Mode)";
+						nextValue = "browser";
+						break;
+
+					default:
+						console.warn("Unknown browserType:", json.browserType);
+						text = `(${json.browserType || "Unknown"})`;
+						break;
+				}
+
+				$("#browserType")
+					.html(text)
+					.css("color", "white");
+
+				if (nextValue) {
+					document.getElementById("browserType").href =
+						`javascript:changeConfigSetting('browserType', '${nextValue}')`;
+				}
+			})
+			.fail((xhr, status, error) => {
+				console.error("Failed to load config:", status, error);
+			});
+
         }
 		function loadSettings2() {
 			const cookie = getCookie("studio_interactive_tutorial");
