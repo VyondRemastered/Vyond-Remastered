@@ -138,6 +138,7 @@ module.exports = function (req, res, url) {
 				isLogin: "Y",
 				isWide: db.resolution || 1,
 				isRetro: db.resolution || 2,
+				isUltra: db.resolution || 3,
 				lid: 0,
 				presaveId: presave,
 				nextUrl: "/ajax/goVideoList/",
@@ -194,7 +195,8 @@ module.exports = function (req, res, url) {
 				tm: "FIN",
 				uplp: 0,
 				isWide: db.resolution || 1,
-				isRetro: db.resolution || 2
+				isRetro: db.resolution || 2,
+				isUltra: db.resolution || 3
 			};
 			switch (filename) {
 				case "studio": {
