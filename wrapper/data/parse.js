@@ -155,12 +155,17 @@ function meta2Xml(v) {
 			break;
 		}
 		case "prop": {
-				if (v.subtype == "video") {
-					response = `<prop subtype="video" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" placeable="1" facing="left" width="${v.width}" height="${v.height}" asset_url="/assets/${v.id}"/>`;
-				} else {
-					response = `<prop subtype="0" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" ${v.ptype}="1" facing="left" width="0" height="0" asset_url="/assets/${v.id}"/>`;
-				}
-				break;
+			// IMPORTANT: the LVM's UGC theme identifies props by their
+			// filename (the value used by <file> in movie.xml), while
+			// enc_asset_id carries the database asset ID.  Using v.id for
+			// both fields makes the prop work in the player ZIP but prevents
+			// Video Maker from matching the reloaded movie prop to ugc.xml.
+			if (v.subtype == "video") {
+				response = `<prop subtype="video" id="${v.file}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" placeable="1" facing="left" width="${v.width}" height="${v.height}" asset_url="/assets/${v.file}"/>`;
+			} else {
+				response = `<prop subtype="0" id="${v.file}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" ${v.ptype || "placeable"}="1" facing="left" width="0" height="0" asset_url="/assets/${v.file}"/>`;
+			}
+			break;
 		}
 		case "sound": {
 			response = `<sound subtype="${v.subtype}" id="${v.file}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" duration="${v.duration}" downloadtype="progressive"/>`;
