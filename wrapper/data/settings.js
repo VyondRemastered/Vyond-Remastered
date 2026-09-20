@@ -41,9 +41,6 @@ module.exports = function (req, res, url) {
                 }
             });
             break;
-        } case "/api/settings/cmd/open": { // uses the launchSettings.exe file to open settings.bat. (Only works on windows right now)
-            if (process.env.OS_USED == "Windows") execute("launchSettings.exe", [], path.join(__dirname, "../../")), res.end();
-            break;
         } case "/api/config/get": {
             res.end(JSON.stringify(JSON.parse(fs.readFileSync("./config.json"))));
             break;
