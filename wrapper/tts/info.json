@@ -1,5 +1,783 @@
 {
 	"voices": {
+		"Alejandrasvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Alejandra",
+			"desc": "Alejandra"
+		},
+		"Amysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Amy",
+			"desc": "Amy"
+		},
+		"Bellesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Belle",
+			"desc": "Belle"
+		},
+		"Calliesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Callie",
+			"desc": "Callie"
+		},
+		"Charliesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Charlie",
+			"desc": "Charlie"
+		},
+		"Conradsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Conrad",
+			"desc": "Conrad"
+		},
+		"Dallassvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Dallas",
+			"desc": "Dallas"
+		},
+		"Damiensvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Damien",
+			"desc": "Damien"
+		},
+		"Davidsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "David",
+			"desc": "David"
+		},
+		"Designersvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Designer",
+			"desc": "Designer"
+		},
+		"Dianesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Diane",
+			"desc": "Diane"
+		},
+		"Dieselsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Diesel",
+			"desc": "Diesel"
+		},
+		"Dogsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Dog",
+			"desc": "Dog"
+		},
+		"Duchesssvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Duchess",
+			"desc": "Duchess"
+		},
+		"Duncansvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Duncan",
+			"desc": "Duncan"
+		},
+		"Emilysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Emily",
+			"desc": "Emily"
+		},
+		"Evilgeniussvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Evilgenius",
+			"desc": "Evil Genius"
+		},
+		"Franksvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Frank",
+			"desc": "Frank"
+		},
+		"French-frysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "French-fry",
+			"desc": "French-fry"
+		},
+		"Gregorysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Gregory",
+			"desc": "Gregory"
+		},
+		"Isabellesvg": {
+			"country": "CA",
+			"language": "fr",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Isabelle",
+			"desc": "Isabelle"
+		},
+		"Jean-Pierresvg": {
+			"country": "CA",
+			"language": "fr",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Jean-Pierre",
+			"desc": "Jean-Pierre"
+		},
+		"Jerkfacesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Jerkface",
+			"desc": "Jerkface"
+		},
+		"JerseyGirlsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "JerseyGirl",
+			"desc": "Jersey Girl"
+		},
+		"Katrinsvg": {
+			"country": "DE",
+			"language": "de",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Katrin",
+			"desc": "Katrin"
+		},
+		"Kaylasvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Kayla",
+			"desc": "Kayla"
+		},
+		"Kevinsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Kevin",
+			"desc": "Kevin"
+		},
+		"Kidaroosvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Kidaroo",
+			"desc": "Kidaroo"
+		},
+		"Lawrencesvg": {
+			"country": "GB",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Lawrence",
+			"desc": "Lawrence"
+		},
+		"Lindasvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Linda",
+			"desc": "Linda"
+		},
+		"Matthiassvg": {
+			"country": "DE",
+			"language": "de",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Matthias",
+			"desc": "Matthias"
+		},
+		"Miguelsvg": {
+			"country": "MX",
+			"language": "es",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Miguel",
+			"desc": "Miguel"
+		},
+		"Milliesvg": {
+			"country": "GB",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Millie",
+			"desc": "Millie"
+		},
+		"Obamasvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Obama",
+			"desc": "Obama"
+		},
+		"Princesssvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Princess",
+			"desc": "Princess"
+		},
+		"RansomNotesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "RansomNote",
+			"desc": "Ransom Note"
+		},
+		"Robinsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Robin",
+			"desc": "Robin"
+		},
+		"Robotsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Robot",
+			"desc": "Robot"
+		},
+		"Shoutysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Shouty",
+			"desc": "Shouty"
+		},
+		"Shygirlsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Shygirl",
+			"desc": "Shy Girl"
+		},
+		"Susansvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Susan",
+			"desc": "Susan"
+		},
+		"Tamikasvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Tamika",
+			"desc": "Tamika"
+		},
+		"TopHatsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "TopHat",
+			"desc": "Top Hat"
+		},
+		"Vittoriasvg": {
+			"country": "IT",
+			"language": "it",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Vittoria",
+			"desc": "Vittoria"
+		},
+		"Vixensvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "Vixen",
+			"desc": "Vixen"
+		},
+		"Vladsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Vlad",
+			"desc": "Vlad"
+		},
+		"Waltersvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Walter",
+			"desc": "Walter"
+		},
+		"Warrensvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Warren",
+			"desc": "Warren"
+		},
+		"Whisperysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Whispery",
+			"desc": "Whispery"
+		},
+		"Williamsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "William",
+			"desc": "William"
+		},
+		"Wiseguysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Wiseguy",
+			"desc": "Wiseguy"
+		},
+		"Zachsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "Zach",
+			"desc": "Zach"
+		},
+
+		"Legacy Charliesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Charlie",
+			"desc": "Legacy Charlie"
+		},
+		"Legacy Conradsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Conrad",
+			"desc": "Legacy Conrad"
+		},
+		"Legacy Dallassvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Dallas",
+			"desc": "Legacy Dallas"
+		},
+		"Legacy Damiensvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Damien",
+			"desc": "Legacy Damien"
+		},
+		"Legacy Davidsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:David",
+			"desc": "Legacy David"
+		},
+		"Legacy Dieselsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Diesel",
+			"desc": "Legacy Diesel"
+		},
+		"Legacy Kidaroosvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Kidaroo",
+			"desc": "Legacy Kidaroo"
+		},
+		"Legacy Lindasvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Linda",
+			"desc": "Legacy Linda"
+		},
+		"Legacy Princesssvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Princess",
+			"desc": "Legacy Princess"
+		},
+		"Legacy Shygirlsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Shygirl",
+			"desc": "Legacy Shy Girl"
+		},
+		"Legacy Wiseguysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Wiseguy",
+			"desc": "Legacy Wiseguy"
+		},
+
+		"Legacy Amysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Amy",
+			"desc": "Legacy Amy"
+		},
+		"Legacy Bellesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Belle",
+			"desc": "Legacy Belle"
+		},
+		"Legacy Calliesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Callie",
+			"desc": "Legacy Callie"
+		},
+		"Legacy CallieQsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:CallieQ",
+			"desc": "Legacy CallieQ"
+		},
+		"Legacy Designersvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Designer",
+			"desc": "Legacy Designer"
+		},
+		"Legacy Dianesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Diane",
+			"desc": "Legacy Diane"
+		},
+		"Legacy Dogsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Dog",
+			"desc": "Legacy Dog"
+		},
+		"Legacy Duchesssvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Duchess",
+			"desc": "Legacy Duchess"
+		},
+		"Legacy Duncansvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Duncan",
+			"desc": "Legacy Duncan"
+		},
+		"Legacy Emilysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Emily",
+			"desc": "Legacy Emily"
+		},
+		"Legacy EvilGeniussvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:EvilGenius",
+			"desc": "Legacy Evil Genius"
+		},
+		"Legacy Franksvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Frank",
+			"desc": "Legacy Frank"
+		},
+		"Legacy French-frysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:French-fry",
+			"desc": "Legacy French-fry"
+		},
+		"Legacy Gregorysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Gregory",
+			"desc": "Legacy Gregory"
+		},
+		"Legacy Jerkfacesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Jerkface",
+			"desc": "Legacy Jerkface"
+		},
+		"Legacy JerseyGirlsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:JerseyGirl",
+			"desc": "Legacy Jersey Girl"
+		},
+		"Legacy Kaylasvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Kayla",
+			"desc": "Legacy Kayla"
+		},
+		"Legacy Kevinsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Kevin",
+			"desc": "Legacy Kevin"
+		},
+		"Legacy Lawrencesvg": {
+			"country": "GB",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Lawrence",
+			"desc": "Legacy Lawrence"
+		},
+		"Legacy Milliesvg": {
+			"country": "GB",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Millie",
+			"desc": "Legacy Millie"
+		},
+		"Legacy Obamasvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Obama",
+			"desc": "Legacy Obama"
+		},
+		"Legacy RansomNotesvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:RansomNote",
+			"desc": "Legacy Ransom Note"
+		},
+		"Legacy Robinsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Robin",
+			"desc": "Legacy Robin"
+		},
+		"Legacy Shoutysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Shouty",
+			"desc": "Legacy Shouty"
+		},
+		"Legacy Susansvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Susan",
+			"desc": "Legacy Susan"
+		},
+		"Legacy Tamikasvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Tamika",
+			"desc": "Legacy Tamika"
+		},
+		"Legacy TopHatsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:TopHat",
+			"desc": "Legacy Top Hat"
+		},
+		"Legacy Vixensvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "F",
+			"source": "voiceforge",
+			"arg": "legacy:Vixen",
+			"desc": "Legacy Vixen"
+		},
+		"Legacy Vladsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Vlad",
+			"desc": "Legacy Vlad"
+		},
+		"Legacy Waltersvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Walter",
+			"desc": "Legacy Walter"
+		},
+		"Legacy Warrensvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Warren",
+			"desc": "Legacy Warren"
+		},
+		"Legacy Whisperysvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Whispery",
+			"desc": "Legacy Whispery"
+		},
+		"Legacy Williamsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:William",
+			"desc": "Legacy William"
+		},
+		"Legacy Zachsvg": {
+			"country": "US",
+			"language": "en",
+			"gender": "M",
+			"source": "voiceforge",
+			"arg": "legacy:Zach",
+			"desc": "Legacy Zach"
+		},
 		"katrin2": {
 			"country": "DE",
 			"language": "de",

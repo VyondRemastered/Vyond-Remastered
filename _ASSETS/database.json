@@ -1,5 +1,70 @@
 {
-	"assets": [],
+	"assets": [
+		{
+			"id": "eac69b8",
+			"enc_asset_id": "eac69b8",
+			"themeId": "ugc",
+			"type": "sound",
+			"subtype": "tts",
+			"title": "[Jordi] this is a test",
+			"published": "",
+			"share": {
+				"type": "none"
+			},
+			"tags": "",
+			"duration": 888,
+			"file": "eac69b8.mp3",
+			"signature": ""
+		},
+		{
+			"id": "92b761f",
+			"enc_asset_id": "92b761f",
+			"themeId": "ugc",
+			"type": "sound",
+			"subtype": "tts",
+			"title": "[Brian] this is a test",
+			"published": "",
+			"share": {
+				"type": "none"
+			},
+			"tags": "",
+			"duration": 1306,
+			"file": "92b761f.mp3",
+			"signature": ""
+		},
+		{
+			"id": "b8497b0",
+			"enc_asset_id": "b8497b0",
+			"themeId": "ugc",
+			"type": "sound",
+			"subtype": "tts",
+			"title": "[Wiseguy] this is a test",
+			"published": "",
+			"share": {
+				"type": "none"
+			},
+			"tags": "",
+			"duration": 1620,
+			"file": "b8497b0.mp3",
+			"signature": ""
+		},
+		{
+			"id": "d3c488e",
+			"enc_asset_id": "d3c488e",
+			"themeId": "ugc",
+			"type": "sound",
+			"subtype": "tts",
+			"title": "[Legacy Wiseguy] this is a test",
+			"published": "",
+			"share": {
+				"type": "none"
+			},
+			"tags": "",
+			"duration": 1440,
+			"file": "d3c488e.mp3",
+			"signature": ""
+		}
+	],
 	"movieDates": {},
 	"folders": [],
 	"movies": []
