@@ -1219,4 +1219,254 @@
 	<prop id="shop01_prop02.swf" name="" holdable="0" placeable="1" wearable="0" facing="left" thumb="" enable="N" is_premium="N" aid="17405" money="0" sharing="0"/>
 	<prop id="shop01_prop03.swf" name="" holdable="0" placeable="1" wearable="0" facing="left" thumb="" enable="N" is_premium="N" aid="17406" money="0" sharing="0"/>
 	<prop id="shop01_prop04.swf" name="" holdable="0" placeable="1" wearable="0" facing="left" thumb="" enable="N" is_premium="N" aid="17407" money="0" sharing="0"/>
+
+    <char id="125775095" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/125775095.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="125775728" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/125775728.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="125790076" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/125790076.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="126203196" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126203196.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126206171" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126206171.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126207167" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126207167.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="126207623" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126207623.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="126207822" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126207822.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126208041" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126208041.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126209717" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126209717.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126209930" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126209930.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="126216723" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126216723.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="126217656" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126217656.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="126218497" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126218497.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126218849" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126218849.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126218983" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126218983.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126219079" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126219079.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126219095" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126219095.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126219108" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126219108.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126219273" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126219273.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="126374207" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126374207.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126374292" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126374292.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="126375079" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126375079.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126375185" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126375185.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="126375365" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126375365.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="126375768" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/126375768.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127370318" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127370318.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127371184" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127371184.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127371207" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127371207.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127371269" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127371269.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127371351" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127371351.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127371487" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127371487.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127371618" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127371618.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127371742" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127371742.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127371802" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127371802.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127371934" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127371934.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127371982" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127371982.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127373443" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127373443.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127373466" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127373466.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127373639" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127373639.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127373657" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127373657.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127373671" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127373671.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127373845" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127373845.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127373879" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127373879.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127373911" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127373911.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127373932" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127373932.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127535722" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127535722.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127819970" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127819970.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127966548" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127966548.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127966673" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127966673.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127966808" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127966808.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127967737" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127967737.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127967832" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127967832.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127967928" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127967928.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127968201" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127968201.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127968354" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127968354.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="127969466" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127969466.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="127970237" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/127970237.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="129763608" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129763608.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="129763666" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129763666.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="129765654" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129765654.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="129765887" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129765887.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="129766171" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129766171.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="129767209" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129767209.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="129768048" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129768048.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="129768151" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129768151.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="129768250" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129768250.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="129768618" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129768618.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="129768798" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129768798.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="129768892" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129768892.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="129769117" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129769117.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="129769357" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/129769357.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="132255653" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/132255653.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="132255824" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/132255824.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="132255833" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/132255833.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="132255941" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/132255941.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="132256055" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/132256055.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="132256245" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/132256245.png" copyable="Y">
+    <tags>anime,_cat:Girl</tags>
+    </char>
+    <char id="132256342" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/132256342.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="132256381" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/132256381.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="132256494" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/132256494.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="132256524" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/132256524.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
+    <char id="132256617" name="Untitled" cc_theme_id="anime" thumbnail_url="stock_thumbs/132256617.png" copyable="Y">
+    <tags>anime,_cat:Guy</tags>
+    </char>
 </theme>
